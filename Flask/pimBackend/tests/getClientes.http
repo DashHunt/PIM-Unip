@@ -1,0 +1,17 @@
+###GET Clientes
+GET http://localhost:5000/pim/getClientes
+X-Header-Token: secret_key
+Content-Type: application/json
+
+###GET Clientes by ID
+GET http://localhost:5000/pim/getClientesID?id=3
+Content-Type: application/json
+
+
+###GET Clientes by ID
+GET http://localhost:5000/pim/getClientesCPF
+Content-Type: application/json
+
+{
+    "cpf": "480.971.148-01"
+}

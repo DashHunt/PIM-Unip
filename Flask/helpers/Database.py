@@ -1,28 +1,64 @@
+from flask import jsonify
 from dotenv import load_dotenv
-import psycopg2
+from os.path import dirname, join
 import os
+import psycopg2
 
-from helpers.Config import Config
+class DatabasePSTGRES(object):
+    def __init__(self, path, databaseName='postgres'):
+        dotenv_path = join(dirname(path), '.env')
+        load_dotenv(dotenv_path)
+        self.host = 'localhost'
+        self.user = os.environ.get('DATABASE_USER')
+        self.password = os.environ.get('DATABASE_PASSWORD')
+        self.port = os.environ.get('DATABASE_PORT')
+        self.database = databaseName
 
-class DatabasePSTGRES:
-    def __init__(self):
-        load_dotenv()
-        self.password = os.getenv('DATABASE_PASSWORD')
-        self.url = os.getenv('DATABASE_URL')
-        self.user = os.getenv('DATABASE_USER')
-        self.port = os.getenv('DATABASE_PORT')
+    def ConnectToPostgreSQL(self):
+        conn = psycopg2.connect(
+            host=self.host,
+            database=self.database,
+            user=self.user,
+            password=self.password
+        )
 
-    def DatabaseConnect(self):
+        return conn
+
+    @staticmethod
+    def ExecuteCommand(connection, commandToExecute, valuesToReplace={}):
+        cursor = connection.cursor()
+
         try:
-            conn = psycopg2.connect(Config)
+            cursor.execute(commandToExecute, valuesToReplace)
+        except Exception as errorMsg:
+            return "POSTGRES Error: {}".format(str(errorMsg))
+        connection.commit()
 
-            cur = conn.cursor()
-            
-            # execute a statement
-            print('PostgreSQL database version:')
-            cur.execute('SELECT version()')
+        data = cursor.fetchall()
+        cursor.close()
+        return data
+        # try:
+        #     data = cursor.fetchall()
+        #     cursor.close()
+        #     result = []
 
-            db_version = cur.fetchone()
-            print(db_version)
-        except (Exception, psycopg2.DatabaseError) as error:
-            print(error)
+        #     if data == []:
+        #         return jsonify(result)
+        #     else:
+        #         for row in range(0, data.numberOfRows):
+        #             rowDetails = {}
+        #             for columnCount, column in enumerate(data.columnNames):
+        #                 rowDetails[column] = data.ado_results[columnCount][row]
+        #             result.append(rowDetails)
+        #         return result
+        # except:
+        #     return {'status': True}
+
+    @staticmethod
+    def CloseConnection(connection):
+        try:
+            connection.close()
+        except:
+            pass
+
+

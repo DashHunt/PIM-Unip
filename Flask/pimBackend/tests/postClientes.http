@@ -1,0 +1,3 @@
+###POST clientes
+POST http://localhost:5000/pim/getClientes
+Content-Type: application/json
