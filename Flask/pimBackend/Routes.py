@@ -46,3 +46,14 @@ def routeGetClientesByCPF():
         return Clientes().getClientesByCPF(data['cpf'])
     else:
         return errorMessage
+
+
+#POST cliente
+@apiPIM.route("/postCliente", methods=['POST'])
+def routePostCliente():
+    data = request.get_json()
+
+    if Auth(request.headers, "pimBackend/"):
+        return Clientes().postClientes(data)
+    else:
+        return errorMessage

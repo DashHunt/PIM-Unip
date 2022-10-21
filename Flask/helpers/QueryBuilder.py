@@ -9,8 +9,10 @@ class QueryBuilder:
        return 'SELECT * FROM {0}'.format(table)
 
     @staticmethod
-    def post(table):
-       return 'INSERT INTO {tableName} VALUES %r;'
+    def post(table, columns, queryValues):
+       return """INSERT INTO {tableName}({columns})
+	    VALUES {values};
+       """.format(tableName=table, columns=columns, values=queryValues)
 
     @staticmethod
     def selectByID(table, id):

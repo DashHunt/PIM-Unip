@@ -33,26 +33,12 @@ class DatabasePSTGRES(object):
         except Exception as errorMsg:
             return "POSTGRES Error: {}".format(str(errorMsg))
         connection.commit()
-
-        data = cursor.fetchall()
-        cursor.close()
-        return data
-        # try:
-        #     data = cursor.fetchall()
-        #     cursor.close()
-        #     result = []
-
-        #     if data == []:
-        #         return jsonify(result)
-        #     else:
-        #         for row in range(0, data.numberOfRows):
-        #             rowDetails = {}
-        #             for columnCount, column in enumerate(data.columnNames):
-        #                 rowDetails[column] = data.ado_results[columnCount][row]
-        #             result.append(rowDetails)
-        #         return result
-        # except:
-        #     return {'status': True}
+        try:
+            data = cursor.fetchall()
+            cursor.close()
+            return data
+        except:
+            return {'status': True}
 
     @staticmethod
     def CloseConnection(connection):
