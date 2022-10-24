@@ -31,7 +31,7 @@ CREATE TABLE uploads (
 );
 
 CREATE TABLE codigo_registro (
-	ID_anexo SERIAL PRIMARY KEY,
+	ID_codigo SERIAL PRIMARY KEY,
 	codigo varchar(100),
 	FK_ID_cliente INTEGER,
 	FOREIGN KEY (FK_ID_cliente) 
