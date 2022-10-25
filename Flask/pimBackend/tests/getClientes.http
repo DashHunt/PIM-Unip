@@ -5,11 +5,13 @@ Content-Type: application/json
 
 ###GET Clientes by ID
 GET http://localhost:5000/pim/getClientesID?id=3
+X-Header-Token: secret_key
 Content-Type: application/json
 
 
 ###GET Clientes by ID
 GET http://localhost:5000/pim/getClientesCPF
+X-Header-Token: secret_key
 Content-Type: application/json
 
 {
