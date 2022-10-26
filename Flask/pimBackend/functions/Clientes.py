@@ -14,6 +14,9 @@ class Clientes:
         return jsonify(result)
 
     def getClientesByID(self, id):
+        if not id:
+            return jsonify('Necessário fornecimento de id')
+
         query = self.query.selectByID('clientes', id)
 
         result = self.database.ExecuteCommand(self.database.ConnectToPostgreSQL(), query)

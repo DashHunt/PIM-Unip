@@ -16,7 +16,7 @@ Content-Type: application/json
 
 ###GET Clientes by ID
 GET http://localhost:5000/pim/getClientesCPF
-X-Header-Token: secret_key
+X-Header-Token: secret_key]
 Content-Type: application/json
 
 {

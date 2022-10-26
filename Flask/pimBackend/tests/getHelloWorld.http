@@ -1,6 +1,7 @@
 ###GET Hello world
 GET http://localhost:5000/pim/getHelloWorld
 X-Header-Token: secret_key
+X-Header-Token-Query: secret_query_key
 Content-Type: application/json
 
 ###GET Hello world
