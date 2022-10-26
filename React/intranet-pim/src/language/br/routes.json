@@ -1,0 +1,10 @@
+{
+    "app": {
+        "path": "/PIM",
+        "label": "App"
+    },
+    "welcome": {
+        "path": "/PIM/bem-vindo",
+        "label": "Bem-vindo(a)"
+    }
+}
