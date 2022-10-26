@@ -1,14 +1,14 @@
 import axios from 'axios'
 import {ApiServer} from '../server/server'
 
-export default class APIExample{
+export default class APIFileUpload{
     constructor(){
-        this.Flag = 'CEP'
+        this.Flag = 'File Upload'
         this.axiosInstance = new axios.create({
             timeout: 100000000,
             baseURL: ApiServer(),
             headers: {
-                'Content-Type': 'application/json; charset=UTF-8',
+                'Content-Type': 'multipart/form-data',
                 'Accept': 'application/json; charset=UTF-8',
                 'X-Header-Token': process.env.REACT_APP_X_HEADER_TOKEN,
                 'X-Header-Token-Query': process.env.REACT_APP_X_HEADER_TOKEN_QUERY
@@ -16,10 +16,20 @@ export default class APIExample{
         })
     }
 
-    get(cep){
+    upload(fileList, id){
+        const fileData = new FormData();
+
+        Array.from(fileList).forEach(file => {
+            fileData.append("files", file)
+        })
+
         const config = {
-            method: 'GET',
-            url: ApiServer() + '/apiExample'
+            method: 'POST',
+            url: ApiServer() + '/uploadExample',
+            data: fileData,
+            params: {
+                id: id
+            }
         }
         return this.axiosInstance(config)
     }
