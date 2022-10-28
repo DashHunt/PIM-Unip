@@ -5,6 +5,7 @@ import {BrowserRouter, Routes, Route} from 'react-router-dom'
 import {routes} from './helpers/helpers'
 
 import './assets/index.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import App from './components/App'
 import Welcome from './components/Welcome'
 
