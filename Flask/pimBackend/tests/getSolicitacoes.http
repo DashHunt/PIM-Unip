@@ -1,0 +1,9 @@
+### Get Solicitacoes
+GET http://localhost:5000/pim/getSolicitacoes
+X-Header-Token: secret_key
+Content-Type: application/json
+
+### Get Solicitacoes Where Data Exclusao Not Null
+GET http://localhost:5000/pim/getSolicitacoesWhereExcNotNull
+X-Header-Token: secret_key
+Content-Type: application/json

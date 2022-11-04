@@ -7,6 +7,8 @@ from helpers.Auth import Auth
 
 from pimBackend.functions.HelloWorld import HelloWorld
 from pimBackend.functions.Clientes import Clientes
+from pimBackend.functions.Solicitacoes import Solicitacoes
+from pimBackend.functions.Fipe import Fipe
 
 apiPIM = Blueprint('/pim', __name__)
 
@@ -56,5 +58,59 @@ def routePostCliente():
 
     if Auth(request.headers, "pimBackend/"):
         return Clientes().postClientes(data)
+    else:
+        return errorMessage
+
+#GET Solicitacoes
+@apiPIM.route("/getSolicitacoes", methods=['GET'])
+def routeGetSolicitacoes():
+    if Auth(request.headers, "pimBackend/"):
+        return Solicitacoes().getSolicitacoes()
+    else:
+        return errorMessage
+
+#POST solicitacoes
+@apiPIM.route("/postSolicitacoes", methods=['POST'])
+def routePostSolicitacoes():
+    data = request.get_json()
+
+    if Auth(request.headers, "pimBackend/"):
+        return Solicitacoes().postSolicitacoes(data)
+    else:
+        return errorMessage
+
+#GET Fipe
+@apiPIM.route("/getFipe", methods=['GET', 'POST'])
+def routeGetFipe():
+    if Auth(request.headers, "pimBackend/"):
+        return Fipe().getFipe()
+    else:
+        return errorMessage
+
+#POST fipe
+@apiPIM.route("/postFipe", methods=['POST'])
+def routePostFipe():
+    data = request.get_json()
+
+    if Auth(request.headers, "pimBackend/"):
+        return Fipe().postFipe(data)
+    else:
+        return errorMessage
+
+#GET Solicitacoes Where Data Exclusão Not Null
+@apiPIM.route("/getSolicitacoesWhereDataExcNotNull", methods=['GET', 'POST'])
+def routeGetSolicitacoesWhereDataExcNotNull():
+    if Auth(request.headers, "pimBackend/"):
+        return Solicitacoes().getSolicitacoesWhereDataExcNotNull()
+    else:
+        return errorMessage
+
+#DELETE solicitacoes
+@apiPIM.route("/deleteSolicitacoes", methods=['POST'])
+def routeDeleteSolicitacoes():
+    data = request.get_json()
+
+    if Auth(request.headers, "pimBackend/"):
+        return Solicitacoes().deleteSolicitacoes(data)
     else:
         return errorMessage

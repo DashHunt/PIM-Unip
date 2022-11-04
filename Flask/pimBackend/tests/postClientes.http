@@ -4,21 +4,10 @@ X-Header-Token: secret_key
 Content-Type: application/json
 
 {   
-    "id_clientes": 15,
-    "cpf": "444.333.222-11", 
-    "nome": "Tester", 
-    "rg": "456321799", 
-    "rg_data_emissao": "2017-07-20", 
-    "rg_uf": "SP", 
-    "endereco_lougradouro": "Romeu Ceoloto", 
-    "endereco_numero": "555", 
-    "endereco_bairro": "Campos Eliseos", 
-    "endereco_cep": "Teste", 
-    "endereco_estado": "SP", 
-    "data_nascimento": "2017-07-20", 
-    "cnh_numero": "Teste", 
-    "cnh_data_emissao": "2017-07-20", 
-    "genero": "M",
-    "telefone1": "Teste", 
-    "telefone2": "Teste"
+    "id_cliente": 1,
+    "cpf": "555.333.222-11", 
+    "email": "arthurconti@bmail.com",
+    "primeiro_nome": "Arthur", 
+    "senha": "123456321799", 
+    "sobrenome": "Conti"
 }

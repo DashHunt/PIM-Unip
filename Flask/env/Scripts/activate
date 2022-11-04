@@ -37,7 +37,7 @@ deactivate () {
 # unset irrelevant variables
 deactivate nondestructive
 
-VIRTUAL_ENV="C:\Users\arthu\OneDrive\Área de Trabalho\UNIP\PIM\Quarta Semestre\PIM-Unip\Flask\env"
+VIRTUAL_ENV="C:\git\PIM\PIM-Unip\Flask\env"
 export VIRTUAL_ENV
 
 _OLD_VIRTUAL_PATH="$PATH"
