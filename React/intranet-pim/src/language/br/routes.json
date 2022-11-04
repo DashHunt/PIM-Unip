@@ -6,5 +6,13 @@
     "welcome": {
         "path": "/PIM/bem-vindo",
         "label": "Bem-vindo(a)"
+    },
+    "solicitacoes": {
+        "path": "/PIM/solicitacoes",
+        "label": "Solicitacoes"
+    },
+    "solicitacao": {
+        "path": "/PIM/solicitacoes/:id",
+        "label": "Solicitacoes ID"
     }
 }
