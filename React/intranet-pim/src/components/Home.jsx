@@ -1,22 +1,21 @@
 import React from "react";
+import Button from "react-bootstrap/Button";
+
+import {strings} from '../helpers/helpers'
 
 import { GrDislike, GrLike } from "react-icons/gr";
-
-import FotoInicial from "../assets/urban-male-car-dealership-salesman-gives-car-keys-to-female-customer.png";
 import SafeIcons from "../assets/icons8-safe-100.png";
-
-import Button from "react-bootstrap/Button";
 
 import Topbar from "./Topbar";
 import CardGroupComponent from "./CardGroup";
 
-const App = () => {
+const Home = () => {
   return (
     <Topbar>
       <div style={{ height: "30px" }}></div>
       <div className="text-center" style={{ color: "#000b76" }}>
-        <h1 className="ms-4">Olá, Arthur Coutinho!</h1>
-        <h4 className="ms-4">Bem vindo ao intranet da AS Seguradora S.A.</h4>
+        <h1 className="ms-4">{strings.mensagemDeEntrada + localStorage.getItem('user')}</h1>
+        <h4 className="ms-4">{strings.bemVindo}</h4>
         <div>
           <img
             src={SafeIcons}
@@ -28,7 +27,7 @@ const App = () => {
       </div>
       <hr />
       <h2 className="ms-4" style={{ color: "#000b76" }}>
-        Menus mais utilizados
+        {strings.menusMaisUtilizados}
       </h2>
       <CardGroupComponent />
       <hr />
@@ -40,4 +39,4 @@ const App = () => {
   );
 };
 
-export default App;
+export default Home;

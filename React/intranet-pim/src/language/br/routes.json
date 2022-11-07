@@ -14,5 +14,17 @@
     "solicitacao": {
         "path": "/PIM/solicitacoes/:id",
         "label": "Solicitacoes ID"
+    },
+    "clientes": {
+        "path": "/PIM/clientes",
+        "label": "Clientes"
+    },
+    "cliente": {
+        "path": "/PIM/cliente/:id",
+        "label": "Clientes"
+    },
+    "login": {
+        "path": "/PIM/login",
+        "label": "Login"
     }
 }

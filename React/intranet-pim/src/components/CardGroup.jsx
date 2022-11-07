@@ -4,7 +4,6 @@ import CardGroup from "react-bootstrap/CardGroup";
 import ConsultarCliente from "../assets/icons8-database-daily-import-100.png";
 import CadastrarCliente from "../assets/icons8-adicionar-grupo-de-usuários-mulher-homem-100.png";
 import CadastrarProposta from "../assets/icons8-adicionar-propriedade-100.png";
-import EditarCliente from "../assets/icons8-editar-usuário-masculino-100.png";
 
 function CardGroupComponent(props) {
   return (

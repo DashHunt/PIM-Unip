@@ -1,22 +1,30 @@
+// eslint-disable-next-line
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import Form from "react-bootstrap/Form";
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 import Button from "react-bootstrap/Button";
 
-import Topbar from "./Topbar";
+import Topbar from "../Topbar";
 
-import Solicitacoes from "../data/Solicitacoes";
+import { IoMdArrowRoundBack } from "react-icons/io";
+
+import Solicitacoes from "../../data/Solicitacoes";
 
 const SolicitacaoComponent = () => {
   const { id } = useParams();
-  const [filteredData, setFilteredData] = useState(null);
+  const navigate = useNavigate();
 
   const FilteredSolicitacao = () => {
-    const data = Solicitacoes;
-    return data.filter((solicitacao) => solicitacao.ID == id);
+    // eslint-disable-next-line
+    return Solicitacoes.filter((solicitacao) => solicitacao.ID == id);
+  };
+
+  const Return = () => {
+    navigate("/PIM/solicitacoes");
   };
 
   return (
@@ -25,9 +33,20 @@ const SolicitacaoComponent = () => {
         {FilteredSolicitacao().map((solicitacao, key) => {
           return (
             <>
-              <Form >
+              <Form>
                 <Form.Group className="mb-3">
-                  <h4 className="mt-2">Info solicitacao</h4>
+                  <br />
+                  <div>
+                    <h2>
+                      <IoMdArrowRoundBack
+                        style={{ cursor: "pointer" }}
+                        onClick={() => Return()}
+                      />
+                      Info Solicitacao
+                    </h2>
+                  </div>
+                  <hr className="mt-3" />
+                  <h4>Infos gerenciais</h4>
 
                   <Row className="mb-3">
                     <Form.Group as={Col} controlId="formGridEmail">

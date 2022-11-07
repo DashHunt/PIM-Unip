@@ -1,4 +1,10 @@
 {
     "self": "UI",
-    "teste": "Test"
+    "topBarClientes": "Clients",
+    "topBarSolicitacoes": "Requests",
+    "topBarMetricas": "KPIs",
+    "topBarAtalhos": "Shortcuts",
+    "mensagemDeEntrada": "Hello, ",
+    "bemVindo": "Welcome to the intranet of AS Seguradora S.A.",
+    "menusMaisUtilizados": "Most used menus"
 }
