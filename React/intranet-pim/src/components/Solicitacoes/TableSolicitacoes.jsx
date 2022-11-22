@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-import { strings } from "../../helpers/helpers";
+// eslint-disable-next-line
+import { routes, strings } from "../../helpers/helpers";
 
 import BootstrapTable from "react-bootstrap-table-next";
 import { BiEditAlt, BiTrash } from "react-icons/bi";
@@ -10,8 +11,9 @@ import Solicitacoes from "../../data/Solicitacoes";
 import SolicitacoesColumns from "../../data/SolicitacoesColumns";
 import Topbar from "../Topbar";
 import LoadingSpinner from "../LoadingSpinner";
+import { Button } from "react-bootstrap";
 
-const SolicitacoesComponent = () => {
+const TableSolicitacoes = () => {
   const [loading, setLoading] = useState(true);
   const [columns, setColumns] = useState(SolicitacoesColumns);
   const [solicitacoes, setSolicitacoes] = useState([]);
@@ -19,37 +21,39 @@ const SolicitacoesComponent = () => {
 
   useEffect(() => {
     setInterval(() => {
-      addActionColumns()
+      addActionColumns();
       setSolicitacoes(Solicitacoes);
       setLoading(false);
     }, 2000);
+    // eslint-disable-next-line
   }, []);
 
   function addActionColumns() {
-    let formatter = columns.some((obj) => {if (obj.hasOwnProperty("formatter")) return true});
+    // eslint-disable-next-line
+    let formatter = columns.some((obj) => {
+      if (obj.hasOwnProperty("formatter")) return true;
+    });
 
     if (!formatter) {
       const editColumn = {
-        dataField: "Actions",
-        text: "Actions",
+        dataField: "Ações",
+        text: "Ações",
         formatter: Actions,
       };
       setColumns([...columns, editColumn]);
     }
   }
 
-  function HandleEdit(row){
-    navigate("/PIM/solicitacoes/" + row.ID);
-  };
+  function HandleEdit(row) {
+    navigate("/PIM/solicitacao/" + row.ID);
+  }
 
   const Actions = (data, row) => {
     return (
       <>
         <div>
           <span style={{ color: "green", cursor: "pointer" }}>
-            <BiEditAlt
-              onClick={() => HandleEdit(row)}
-            ></BiEditAlt>
+            <BiEditAlt onClick={() => HandleEdit(row)}></BiEditAlt>
           </span>
           <span style={{ color: "red", cursor: "pointer" }}>
             <BiTrash></BiTrash>
@@ -66,16 +70,30 @@ const SolicitacoesComponent = () => {
           <LoadingSpinner></LoadingSpinner>
         ) : (
           <>
-            <div style={{ height: "30px" }}></div>
-            <BootstrapTable
-              keyField="ID"
-              data={solicitacoes}
-              columns={columns}
-              striped
-              bordered
-              wrapperClasses="table-responsive"
-            />
-            <div style={{ height: "30px" }}></div>
+            <div style={{ height: "15px" }}></div>
+            <div className="row mb-3">
+              <div className="col mb-3">
+                <h4>Solicitacoes</h4>
+              </div>
+
+              <BootstrapTable
+                keyField="ID"
+                data={solicitacoes}
+                columns={columns}
+                striped
+                bordered
+                wrapperClasses="table-responsive"
+              />
+            </div>
+
+            <Button
+              className="p-2 p-sm-2 float-end"
+              type="button"
+              href={routes.solicitacao.path}
+            >
+              Nova solicitacao
+            </Button>
+            <div style={{ height: "60px" }}></div>
           </>
         )}
       </Topbar>
@@ -83,4 +101,4 @@ const SolicitacoesComponent = () => {
   );
 };
 
-export default SolicitacoesComponent;
+export default TableSolicitacoes;

@@ -4,6 +4,14 @@ const SolicitacoesColumns = [
     text: "ID Solicitacao",
   },
   {
+    dataField: "nome",
+    text: "Nome",
+  },
+  {
+    dataField: "sobrenome",
+    text: "Sobrenome",
+  },
+  {
     dataField: "ID_cliente",
     text: "ID Cliente",
   },
@@ -41,7 +49,7 @@ const SolicitacoesColumns = [
   },
   {
     dataField: "Genero",
-    text: "Genero",
+    text: "Gênero",
   },
 ];
 

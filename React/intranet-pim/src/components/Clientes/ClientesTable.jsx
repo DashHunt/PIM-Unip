@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-import { strings } from "../../helpers/helpers";
+// eslint-disable-next-line
+import { strings, routes } from "../../helpers/helpers";
 
 import BootstrapTable from "react-bootstrap-table-next";
 import { BiEditAlt, BiTrash } from "react-icons/bi";
@@ -10,8 +11,9 @@ import Clientes from "../../data/Clientes";
 import ClientesColumns from "../../data/ClientesColumns";
 import Topbar from "../Topbar";
 import LoadingSpinner from "../LoadingSpinner";
+import { Button } from "react-bootstrap";
 
-const ClientesComponent = (props) => {
+const ClientesTable = () => {
   const [loading, setLoading] = useState(true);
   const [columns, setColumns] = useState(ClientesColumns);
   const [clientes, setClientes] = useState([]);
@@ -23,10 +25,14 @@ const ClientesComponent = (props) => {
       setClientes(Clientes);
       setLoading(false);
     }, 2000);
+    // eslint-disable-next-line
   }, []);
 
   function addActionColumns() {
-    let formatter = columns.some((obj) => {if (obj.hasOwnProperty("formatter")) return true});
+    // eslint-disable-next-line
+    let formatter = columns.some((obj) => {
+      if (obj.hasOwnProperty("formatter")) return true;
+    });
 
     if (!formatter) {
       const editColumn = {
@@ -69,16 +75,28 @@ const ClientesComponent = (props) => {
         ) : (
           <>
             <div style={{ height: "15px" }}></div>
-            <h3 className="mb-3 ms-1">Clientes</h3>
-            <BootstrapTable
-              keyField="ID_cliente"
-              data={clientes}
-              columns={columns}
-              striped
-              bordered
-              wrapperClasses="table-responsive"
-            />
-            <div style={{ height: "30px" }}></div>
+            <div className="row mb-3">
+              <div className="col mb-3">
+                <h4>Clientes</h4>
+              </div>
+
+              <BootstrapTable
+                keyField="ID_cliente"
+                data={clientes}
+                columns={columns}
+                striped
+                bordered
+                wrapperClasses="table-responsive"
+              />
+            </div>
+            <Button
+              className="p-2 p-sm-2 float-end"
+              type="button"
+              href={routes.cliente.path}
+            >
+              Novo cliente
+            </Button>
+            <div style={{ height: "60px" }}></div>
           </>
         )}
       </Topbar>
@@ -86,4 +104,4 @@ const ClientesComponent = (props) => {
   );
 };
 
-export default ClientesComponent;
+export default ClientesTable;

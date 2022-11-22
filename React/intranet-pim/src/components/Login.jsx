@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "react-bootstrap";
 
@@ -11,6 +11,8 @@ const Login = () => {
   const [errorEmail, setErrorEmail] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  // eslint-disable-next-line
   const [errorPassword, setErrorPassword] = useState(false);
 
   function validateEmail(string) {
@@ -28,9 +30,11 @@ const Login = () => {
       setErrorEmail(false);
     }
 
-    if (password != "") {
+    if (password !== "") {
+      // eslint-disable-next-line
       if (email == user.email && password == user.password) {
         localStorage.setItem("user", user.user);
+        localStorage.setItem("role", user.role);
         localStorage.setItem("acessToken", acessToken.token);
         localStorage.setItem("expiration", acessToken.expiration);
         navigate('/PIM/')

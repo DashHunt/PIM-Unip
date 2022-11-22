@@ -42,24 +42,28 @@ function Topbar(props) {
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
           <Navbar.Collapse id="responsive-navbar-nav">
             <Nav className="me-auto">
-              <Nav.Link href={routes.clientes.path}>
+              <Nav.Link href={routes.clienteAll.path}>
                 {strings.topBarClientes}
               </Nav.Link>
-              <Nav.Link href={routes.solicitacoes.path}>
+              <Nav.Link href={routes.solicitacaoAll.path}>
                 {strings.topBarSolicitacoes}
               </Nav.Link>
-              <Nav.Link href="#pricing">{strings.topBarMetricas}</Nav.Link>
-              <NavDropdown
-                title={strings.topBarAtalhos}
-                id="collasible-nav-dropdown"
-              >
-                <NavDropdown.Item href="#action/3.1">
-                  Inserir solicitacao
-                </NavDropdown.Item>
-                <NavDropdown.Item href="#action/3.2">
-                  Inserir cliente
-                </NavDropdown.Item>
-              </NavDropdown>
+              <Nav.Link href={routes.metricas.path}>{strings.topBarMetricas}</Nav.Link>
+
+              
+              {localStorage.getItem("role") === "admin" ? (
+                <NavDropdown
+                  title={strings.topBarAtalhos}
+                  id="collasible-nav-dropdown"
+                >
+                  <NavDropdown.Item href={routes.solicitacao.path}>
+                    Inserir solicitacao
+                  </NavDropdown.Item>
+                  <NavDropdown.Item href={routes.cliente.path}>
+                    Inserir cliente
+                  </NavDropdown.Item>
+                </NavDropdown>
+              ) : null}
             </Nav>
             <Nav>
               <Nav.Link eventKey={2} href="#memes">
@@ -78,7 +82,7 @@ function Topbar(props) {
           </Navbar.Collapse>
         </Container>
       </Navbar>
-      <div className="container fluid shadow-sm h-100 bg-light rounded">
+      <div className="container fluid shadow-sm h-100 bg-light rounded mt-2">
         {props.children}
       </div>
     </>

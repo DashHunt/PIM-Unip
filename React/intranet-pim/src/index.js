@@ -9,10 +9,11 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import Home from "./components/Home";
 import Login from "./components/Login";
 import ProtectedRoute from "./components/ProtectedRoute";
-import SolicitacoesComponent from "./components/Solicitacoes/Solicitacoes";
-import SolicitacaoComponent from "./components/Solicitacoes/Solicitacao";
-import ClientesComponent from "./components/Clientes/Clientes";
-import ClienteComponent from "./components/Clientes/Cliente";
+import SolicitacaoPage from "./components/Solicitacoes/SolicitacaoPage";
+import TableSolicitacoes from "./components/Solicitacoes/TableSolicitacoes";
+import ClientesTable from "./components/Clientes/ClientesTable";
+import ClientesPage from "./components/Clientes/ClientePage";
+import MetricasPage from "./components/Metricas/MetricasPage";
 
 ReactDOM.render(
   <React.StrictMode>
@@ -33,29 +34,38 @@ ReactDOM.render(
           }
         ></Route>
         <Route
-          path={routes.solicitacoes.path}
-          exact={true}
-          element={
-            <ProtectedRoute path={routes.login.path}>
-              <SolicitacoesComponent />
-            </ProtectedRoute>
-          }
-        ></Route>
-        <Route
           path={routes.solicitacao.path}
           exact={true}
           element={
             <ProtectedRoute path={routes.login.path}>
-              <SolicitacaoComponent />
+              <SolicitacaoPage />
             </ProtectedRoute>
           }
         ></Route>
         <Route
-          path={routes.clientes.path}
+          path={routes.solicitacaoId.path}
           exact={true}
           element={
             <ProtectedRoute path={routes.login.path}>
-              <ClientesComponent />
+              <SolicitacaoPage />
+            </ProtectedRoute>
+          }
+        ></Route>
+        <Route
+          path={routes.solicitacaoAll.path}
+          exact={true}
+          element={
+            <ProtectedRoute path={routes.login.path}>
+              <TableSolicitacoes />
+            </ProtectedRoute>
+          }
+        ></Route>
+        <Route
+          path={routes.clienteAll.path}
+          exact={true}
+          element={
+            <ProtectedRoute path={routes.login.path}>
+              <ClientesTable />
             </ProtectedRoute>
           }
         ></Route>
@@ -64,7 +74,25 @@ ReactDOM.render(
           exact={true}
           element={
             <ProtectedRoute path={routes.login.path}>
-              <ClienteComponent />
+              <ClientesPage />
+            </ProtectedRoute>
+          }
+        ></Route>
+        <Route
+          path={routes.clienteId.path}
+          exact={true}
+          element={
+            <ProtectedRoute path={routes.login.path}>
+              <ClientesPage />
+            </ProtectedRoute>
+          }
+        ></Route>
+        <Route
+          path={routes.metricas.path}
+          exact={true}
+          element={
+            <ProtectedRoute path={routes.login.path}>
+              <MetricasPage />
             </ProtectedRoute>
           }
         ></Route>

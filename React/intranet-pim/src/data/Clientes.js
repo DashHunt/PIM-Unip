@@ -3,9 +3,9 @@ const Clientes = [
         ID_cliente: 1,
         CPF: "111.111.111-01",
         email: "teste@teste.com",
-        primeiro_nome: "Teste 1",
-        senha: "senha",
-        sobrenome: "Teste",
+        primeiro_nome: "Arthur",
+        senha: "Senha secreta",
+        sobrenome: "Coutinho",
     },
     {
         ID_cliente: 2,

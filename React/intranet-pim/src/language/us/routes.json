@@ -7,24 +7,36 @@
         "path": "/PIM/bem-vindo",
         "label": "Bem-vindo(a)"
     },
-    "solicitacoes": {
+    "solicitacao": {
+        "path": "/PIM/solicitacao",
+        "label": "Solicitacoes"
+    },
+    "solicitacaoId": {
+        "path": "/PIM/solicitacao/:id",
+        "label": "Solicitacoes ID"
+    },
+    "solicitacaoAll" : {
         "path": "/PIM/solicitacoes",
         "label": "Solicitacoes"
     },
-    "solicitacao": {
-        "path": "/PIM/solicitacoes/:id",
-        "label": "Solicitacoes ID"
-    },
-    "clientes": {
-        "path": "/PIM/clientes",
-        "label": "Clientes"
-    },
     "cliente": {
+        "path": "/PIM/cliente",
+        "label": "Cliente"
+    },
+    "clienteId": {
         "path": "/PIM/cliente/:id",
-        "label": "Clientes"
+        "label": "Cliente by ID"
+    },
+    "clienteAll": {
+        "path": "/PIM/clientes",
+        "label": "Table Clientes"
     },
     "login": {
         "path": "/PIM/login",
         "label": "Login"
+    },
+    "metricas": {
+        "path": "/PIM/metricas",
+        "label": "Metricas"
     }
 }

@@ -1,7 +1,8 @@
 export const user = {
-    user: 'Julia Araujo',
+    user: 'Arthur Coutinho',
     email: 'arthurlopescoutinho@hotmail.com',
     password: '1234',
+    role: 'admin'
 }
 
 export const acessToken = {
