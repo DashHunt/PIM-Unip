@@ -1,10 +1,14 @@
 {
     "app": {
-        "path": "/PIM",
+        "path": "/AS",
         "label": "App"
     },
     "welcome": {
-        "path": "/PIM/bem-vindo",
+        "path": "/AS/bem-vindo",
         "label": "Bem-vindo(a)"
+    },
+    "login": {
+        "path": "/AS/login",
+        "label": "Login"
     }
 }
