@@ -4,7 +4,7 @@ import teste.testado.Modelo.Solicitacoes;
 
 public class SolicitacoesForm {
 
-    private Long idSolicitacao;
+    private Integer idSolicitacao;
     private String rg;
     private String rgDataEmissao;
     private String rgUf;
@@ -22,12 +22,12 @@ public class SolicitacoesForm {
     private String dataExclusao;
     private String dataApolice;
     private String status;
-    private Long idCliente;
+    private Integer idCliente;
     
-    public Long getIdSolicitacao() {
+    public Integer getIdSolicitacao() {
         return idSolicitacao;
     }
-    public void setIdSolicitacao(Long idSolicitacao) {
+    public void setIdSolicitacao(Integer idSolicitacao) {
         this.idSolicitacao = idSolicitacao;
     }
     public String getRg() {
@@ -132,10 +132,10 @@ public class SolicitacoesForm {
     public void setStatus(String status) {
         this.status = status;
     }
-    public Long getIdCliente() {
+    public Integer getIdCliente() {
         return idCliente;
     }
-    public void setIdCliente(Long idCliente) {
+    public void setIdCliente(Integer idCliente) {
         this.idCliente = idCliente;
     }
 

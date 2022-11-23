@@ -13,7 +13,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import teste.testado.Controller.DTO.ClientesDto;
 import teste.testado.Controller.Form.ClienteForm;
-import teste.testado.Modelo.perfilSite;
+import teste.testado.Modelo.PerfilSite;
 import teste.testado.Repository.ClientesRepository;
 
 @RestController
@@ -23,24 +23,38 @@ public class ClientesController {
     private ClientesRepository repositorioCliente;
     
     @RequestMapping(value = "/getClientes", method = RequestMethod.GET)
-    public List<ClientesDto> getClientes(String email){
+    public List<ClientesDto> getClientes(String email, String senha){
         if(email == null){
-            List<perfilSite> clientes = repositorioCliente.findAll();
+            List<PerfilSite> clientes = repositorioCliente.findAll();
             return ClientesDto.converter(clientes);
         }else{
-            List<perfilSite> clientes = repositorioCliente.findByEmail(email);
+            List<PerfilSite> clientes = repositorioCliente.findByEmail(email, senha);
+            return ClientesDto.converter(clientes);
+        }
+    }
+
+    @RequestMapping(value = "/getClientesById", method = RequestMethod.GET)
+    public List<ClientesDto> getClientesById(Integer idCliente){
+        if(idCliente == null){
+            List<PerfilSite> clientes = repositorioCliente.findAll();
+            return ClientesDto.converter(clientes);
+        }else{
+            List<PerfilSite> clientes = repositorioCliente.findById(idCliente);
             return ClientesDto.converter(clientes);
         }
     }
     
     @RequestMapping(value = "/postClientes", method = RequestMethod.POST)
     public ResponseEntity<ClientesDto> postClientes(@RequestBody ClienteForm form, UriComponentsBuilder uriBuilder){
-        perfilSite cliente = form.converter();
+        PerfilSite cliente = form.converter();
         repositorioCliente.save(cliente);
 
         URI uri = uriBuilder.path("/Clientes/{id}").buildAndExpand(cliente.getIdCliente()).toUri();
         return ResponseEntity.created(uri).body(new ClientesDto(cliente));
     }
+
+
+
 }    
 
 

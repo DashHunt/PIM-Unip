@@ -12,7 +12,8 @@ import javax.persistence.Table;
 @Table(name = "solicitacao_proposta")
 public class Solicitacoes {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long idSolicitacao;
+    @Column(name = "id_solicitacao")
+    private Integer idSolicitacao;
     private String rg;
     private String rgDataEmissao;
     private String rgUf;
@@ -27,16 +28,18 @@ public class Solicitacoes {
     private String genero;
     private String dataCadastro;
     private String dataModificacao;
+    @Column(name = "data_exclusao")
     private String dataExclusao;
     private String dataApolice;
+    @Column(name = "status")
     private String status;
     @Column(name = "fk_id_cliente")
-    private Long idCliente;
+    private Integer idCliente;
 
     public Solicitacoes(){
     }
 
-    public Solicitacoes(Long idSolicitacao, String rg, String rgDataEmissao, String rgUf, String enderecoLogradouro, String enderecoNumero, String enderecoBairro, String enderecoCep, String enderecoEstado, String dataNascimento, String cnh, String cnhDataEmissao, String genero, String dataCadastro, String dataModificacao, String dataExclusao, String dataApolice, String status, Long idCliente){
+    public Solicitacoes(Integer idSolicitacao, String rg, String rgDataEmissao, String rgUf, String enderecoLogradouro, String enderecoNumero, String enderecoBairro, String enderecoCep, String enderecoEstado, String dataNascimento, String cnh, String cnhDataEmissao, String genero, String dataCadastro, String dataModificacao, String dataExclusao, String dataApolice, String status, Integer idCliente){
         this.idSolicitacao = idSolicitacao;
         this.rg = rg;
         this.rgDataEmissao = rgDataEmissao;
@@ -58,11 +61,11 @@ public class Solicitacoes {
         this.idCliente = idCliente;
     }
 
-    public Long getIdSolicitacao() {
+    public Integer getIdSolicitacao() {
         return idSolicitacao;
     }
 
-    public void setIdSolicitacao(Long idSolicitacao) {
+    public void setIdSolicitacao(Integer idSolicitacao) {
         this.idSolicitacao = idSolicitacao;
     }
 
@@ -202,11 +205,11 @@ public class Solicitacoes {
         this.status = status;
     }
 
-    public Long getIdCliente() {
+    public Integer getIdCliente() {
         return idCliente;
     }
 
-    public void setIdCliente(Long idCliente) {
+    public void setIdCliente(Integer idCliente) {
         this.idCliente = idCliente;
     }
 

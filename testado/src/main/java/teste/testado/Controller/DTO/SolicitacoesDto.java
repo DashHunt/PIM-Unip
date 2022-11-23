@@ -6,7 +6,7 @@ import java.util.stream.Collectors;
 import teste.testado.Modelo.Solicitacoes;
 
 public class SolicitacoesDto {
-    private Long idSolicitacao;
+    private Integer idSolicitacao;
     private String rg;
     private String rgDataEmissao;
     private String rgUf;
@@ -24,7 +24,7 @@ public class SolicitacoesDto {
     private String dataExclusao;
     private String dataApolice;
     private String status;
-    private Long idCliente;
+    private Integer idCliente;
 
     public SolicitacoesDto(Solicitacoes solicitacoes){
         this.idSolicitacao = solicitacoes.getIdSolicitacao();
@@ -48,7 +48,7 @@ public class SolicitacoesDto {
         this.idCliente = solicitacoes.getIdCliente();
     }
 
-    public Long getIdSolicitacao() {
+    public Integer getIdSolicitacao() {
         return idSolicitacao;
     }
     public String getRg() {
@@ -102,7 +102,7 @@ public class SolicitacoesDto {
     public String getStatus() {
         return status;
     }
-    public Long getIdCliente() {
+    public Integer getIdCliente() {
         return idCliente;
     }
 

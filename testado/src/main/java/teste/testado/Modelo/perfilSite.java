@@ -1,39 +1,43 @@
 package teste.testado.Modelo;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Entity
-public class perfilSite {
-    
+@Table(name = "perfil_site")
+public class PerfilSite {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id_cliente;
+    private Integer idCliente;
     private String cpf;
+    @Column(name = "email")
     private String email;
-    private String primeiro_nome;
+    private String primeiroNome;
+    @Column(name = "senha")
     private String senha;
     private String sobrenome;
 
-    public perfilSite(){
+    public PerfilSite(){
     }
 
-    public perfilSite(int id_cliente, String cpf, String email, String primeiro_nome, String senha, String sobrenome){
-        this.id_cliente = id_cliente;
+    public PerfilSite(Integer idCliente, String cpf, String email, String primeiroNome, String senha, String sobrenome){
+        this.idCliente = idCliente;
         this.cpf = cpf;
         this.email = email;
-        this.primeiro_nome = primeiro_nome;
+        this.primeiroNome = primeiroNome;
         this.senha = senha;
         this.sobrenome = sobrenome;
     }
 
-    public int getIdCliente(){
-        return id_cliente;
+    public Integer getIdCliente(){
+        return idCliente;
     }
 
-    public void setIdCliente(int id_cliente){
-        this.id_cliente = id_cliente;
+    public void setIdCliente(Integer idCliente){
+        this.idCliente = idCliente;
     }
 
     public String getCpf(){
@@ -53,11 +57,11 @@ public class perfilSite {
     }
 
     public String getPrimeiroNome(){
-        return primeiro_nome;
+        return primeiroNome;
     }
 
-    public void setPrimeiroNome(String primeiro_nome){
-        this.primeiro_nome = primeiro_nome;
+    public void setPrimeiroNome(String primeiroNome){
+        this.primeiroNome = primeiroNome;
     }
 
     public String getSenha(){

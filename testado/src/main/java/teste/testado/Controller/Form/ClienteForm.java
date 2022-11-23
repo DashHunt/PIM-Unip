@@ -1,22 +1,22 @@
 package teste.testado.Controller.Form;
 
-import teste.testado.Modelo.perfilSite;
+import teste.testado.Modelo.PerfilSite;
 
 public class ClienteForm {
 
-    private int id_cliente;
+    private Integer idCliente;
     private String cpf;
     private String email;
-    private String primeiro_nome;
+    private String primeiroNome;
     private String senha;
     private String sobrenome;
 
-    public int getIdCliente(){
-        return this.id_cliente;
+    public Integer getIdCliente(){
+        return this.idCliente;
     }
 
-    public void setIdCliente(int id_cliente){
-        this.id_cliente = id_cliente;
+    public void setIdCliente(Integer idCliente){
+        this.idCliente = idCliente;
     }
 
     public String getCpf(){
@@ -36,11 +36,11 @@ public class ClienteForm {
     }
 
     public String getPrimeiroNome(){
-        return this.primeiro_nome;
+        return this.primeiroNome;
     }
 
-    public void setPrimeiroNome(String primeiro_nome){
-        this.primeiro_nome = primeiro_nome;
+    public void setPrimeiroNome(String primeiroNome){
+        this.primeiroNome = primeiroNome;
     }
 
     public String getSenha(){
@@ -59,8 +59,8 @@ public class ClienteForm {
         this.sobrenome = sobrenome;
     }
 
-    public perfilSite converter() {
-        return new perfilSite(id_cliente, cpf, email, primeiro_nome, senha, sobrenome);
+    public PerfilSite converter() {
+        return new PerfilSite(idCliente, cpf, email, primeiroNome, senha, sobrenome);
     }
 
 
