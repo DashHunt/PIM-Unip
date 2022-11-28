@@ -25,6 +25,7 @@ public class SolicitacoesDto {
     private String dataApolice;
     private String status;
     private Integer idCliente;
+    private String valorTotal;
 
     public SolicitacoesDto(Solicitacoes solicitacoes){
         this.idSolicitacao = solicitacoes.getIdSolicitacao();
@@ -46,6 +47,7 @@ public class SolicitacoesDto {
         this.dataApolice = solicitacoes.getDataApolice();
         this.status = solicitacoes.getStatus();
         this.idCliente = solicitacoes.getIdCliente();
+        this.valorTotal = solicitacoes.getValorTotal();
     }
 
     public Integer getIdSolicitacao() {
@@ -105,10 +107,13 @@ public class SolicitacoesDto {
     public Integer getIdCliente() {
         return idCliente;
     }
+    
+    public String getValorTotal() {
+        return valorTotal;
+    }
 
     public static List<SolicitacoesDto> converter(List<Solicitacoes> list) {
         return list.stream().map(SolicitacoesDto::new).collect(Collectors.toList());
     }
 
-    
 }

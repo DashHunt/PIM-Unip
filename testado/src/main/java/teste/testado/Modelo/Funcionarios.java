@@ -21,11 +21,12 @@ public class Funcionarios {
     private String sobrenome;
     private String status;
     private String username;
+    private String roles;
 
     public Funcionarios(){
     }
 
-    public Funcionarios(Integer idFuncionario, String dataCadastro, String dataDesligamento, String email, String senha, String sobrenome, String status, String username){
+    public Funcionarios(Integer idFuncionario, String dataCadastro, String dataDesligamento, String email, String senha, String sobrenome, String status, String username, String roles){
         this.idFuncionario = idFuncionario;
         this.dataCadastro = dataCadastro;
         this.dataDesligamento = dataDesligamento;
@@ -34,6 +35,7 @@ public class Funcionarios {
         this.sobrenome = sobrenome;
         this.status = status;
         this.username = username;
+        this.roles = roles;
     }
 
     public Integer getIdFuncionario() {
@@ -100,6 +102,12 @@ public class Funcionarios {
         this.username = username;
     }
 
-    
+    public String getRoles() {
+        return roles;
+    }
+
+    public void setRoles(String roles) {
+        this.roles = roles;
+    }
 
 }

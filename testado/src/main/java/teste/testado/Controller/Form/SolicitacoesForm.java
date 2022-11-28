@@ -23,6 +23,7 @@ public class SolicitacoesForm {
     private String dataApolice;
     private String status;
     private Integer idCliente;
+    private String valorTotal;
     
     public Integer getIdSolicitacao() {
         return idSolicitacao;
@@ -139,10 +140,15 @@ public class SolicitacoesForm {
         this.idCliente = idCliente;
     }
 
-    public Solicitacoes converter() {
-        return new Solicitacoes(idSolicitacao, rg, rgDataEmissao, rgUf, enderecoLogradouro, enderecoNumero, enderecoBairro, enderecoCep, enderecoEstado, dataNascimento, cnh, cnhDataEmissao, genero, dataCadastro, dataModificacao, dataExclusao, dataApolice, status, idCliente);
+    public String getValorTotal() {
+        return valorTotal;
+    }
+    public void setValorTotal(String valorTotal) {
+        this.valorTotal = valorTotal;
     }
 
-    
+    public Solicitacoes converter() {
+        return new Solicitacoes(idSolicitacao, rg, rgDataEmissao, rgUf, enderecoLogradouro, enderecoNumero, enderecoBairro, enderecoCep, enderecoEstado, dataNascimento, cnh, cnhDataEmissao, genero, dataCadastro, dataModificacao, dataExclusao, dataApolice, status, idCliente, valorTotal);
+    }
     
 }

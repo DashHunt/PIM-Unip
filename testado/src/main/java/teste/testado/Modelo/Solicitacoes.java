@@ -35,11 +35,13 @@ public class Solicitacoes {
     private String status;
     @Column(name = "fk_id_cliente")
     private Integer idCliente;
+    @Column(name = "valortotal")
+    private String valorTotal;
 
     public Solicitacoes(){
     }
 
-    public Solicitacoes(Integer idSolicitacao, String rg, String rgDataEmissao, String rgUf, String enderecoLogradouro, String enderecoNumero, String enderecoBairro, String enderecoCep, String enderecoEstado, String dataNascimento, String cnh, String cnhDataEmissao, String genero, String dataCadastro, String dataModificacao, String dataExclusao, String dataApolice, String status, Integer idCliente){
+    public Solicitacoes(Integer idSolicitacao, String rg, String rgDataEmissao, String rgUf, String enderecoLogradouro, String enderecoNumero, String enderecoBairro, String enderecoCep, String enderecoEstado, String dataNascimento, String cnh, String cnhDataEmissao, String genero, String dataCadastro, String dataModificacao, String dataExclusao, String dataApolice, String status, Integer idCliente, String valorTotal){
         this.idSolicitacao = idSolicitacao;
         this.rg = rg;
         this.rgDataEmissao = rgDataEmissao;
@@ -59,6 +61,7 @@ public class Solicitacoes {
         this.dataApolice = dataApolice;
         this.status = status;
         this.idCliente = idCliente;
+        this.valorTotal = valorTotal;
     }
 
     public Integer getIdSolicitacao() {
@@ -211,6 +214,14 @@ public class Solicitacoes {
 
     public void setIdCliente(Integer idCliente) {
         this.idCliente = idCliente;
+    }
+
+    public String getValorTotal() {
+        return valorTotal;
+    }
+
+    public void setValorTotal(String valorTotal) {
+        this.valorTotal = valorTotal;
     }
 
 }

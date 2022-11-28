@@ -14,6 +14,7 @@ public class FuncionariosDto {
     private String sobrenome;
     private String status;
     private String username;
+    private String roles;
 
     public FuncionariosDto(Funcionarios funcionarios){
         this.idFuncionario = funcionarios.getIdFuncionario();
@@ -24,6 +25,7 @@ public class FuncionariosDto {
         this.sobrenome = funcionarios.getSobrenome();
         this.status = funcionarios.getStatus();
         this.username = funcionarios.getUsername();
+        this.roles = funcionarios.getRoles();
     }
 
     public int getIdFuncionario() {
@@ -56,6 +58,10 @@ public class FuncionariosDto {
 
     public String getUsername() {
         return username;
+    }
+    
+    public String getRoles() {
+        return roles;
     }
 
     public static List<FuncionariosDto> converter(List<Funcionarios> list) {

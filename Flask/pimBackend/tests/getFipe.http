@@ -1,3 +1,0 @@
-POST http://localhost:5000/pim/getFipe
-X-Header-Token: secret_key
-Content-Type: application/json

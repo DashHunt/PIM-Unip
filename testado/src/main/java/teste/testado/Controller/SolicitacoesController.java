@@ -33,7 +33,15 @@ public class SolicitacoesController {
             return SolicitacoesDto.converter(solicitacoes);
         }
     }
-    
+
+    @RequestMapping(value = "/getSolicitacoesByStatus", method = RequestMethod.GET)
+    public List<Object[]> getSolicitacoesByStatus(String status){
+        List<Object[]> solicitacoes = repositorioSolicitacoes.findByStatus(status);
+        return solicitacoes;
+    }
+
+
+
     @RequestMapping(value = "/postSolicitacoes", method = RequestMethod.POST)
     public ResponseEntity<SolicitacoesDto> postSolicitacoes(@RequestBody SolicitacoesForm form, UriComponentsBuilder uriBuilder){
         Solicitacoes solicitacoes = form.converter();

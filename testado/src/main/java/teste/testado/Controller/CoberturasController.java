@@ -33,6 +33,13 @@ public class CoberturasController {
             return CoberturasDto.converter(coberturas);
         }
     }
+
+    @RequestMapping(value = "/getTotalCoberturas", method = RequestMethod.GET)
+    public List<CoberturasDto> getTotalCoberturas(){
+        List<Coberturas> coberturas = repositorioCoberturas.findTotalCoberturas();
+        return CoberturasDto.converter(coberturas);
+
+    }
     
     @RequestMapping(value = "/postCoberturas", method = RequestMethod.POST)
     public ResponseEntity<CoberturasDto> postClientes(@RequestBody CoberturasForm form, UriComponentsBuilder uriBuilder){

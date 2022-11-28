@@ -23,6 +23,9 @@ public interface SolicitacoesRepository extends JpaRepository<Solicitacoes, Long
     @Query(value="DELETE Solicitacoes S WHERE S.idSolicitacao=:idSolicitacao", nativeQuery=true)
     void deleteById(Integer idSolicitacao);
 
+    @Query(value = "SELECT SUM(S.idSolicitacao) FROM Solicitacoes S WHERE S.status=:status", nativeQuery = true)
+    List<Object[]> findByStatus(@Param("status") String status);
+
     //void postDeleteSolicitacoes(Solicitacoes solicitacoes);
     
 }

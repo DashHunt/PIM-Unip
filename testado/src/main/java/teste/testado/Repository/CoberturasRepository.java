@@ -19,5 +19,8 @@ public interface CoberturasRepository extends JpaRepository<Coberturas, Long> {
     @Modifying
     @Query("UPDATE Coberturas C set C.idSolicitacao=:idSolicitacao WHERE C.idSolicitacao=:idSolicitacao")
     List<Coberturas> postSolicitacoes(@Param("idSolicitacao") Integer idSolicitacao);
+
+    @Query(value = "SELECT SUM(C.valor::integer) FROM Coberturas C", nativeQuery = true)
+    List<Coberturas> findTotalCoberturas();
    
 }

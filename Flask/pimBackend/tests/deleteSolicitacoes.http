@@ -1,9 +1,0 @@
-### Delete Solicitacoes
-POST http://localhost:5000/pim/deleteSolicitacoes
-X-Header-Token: secret_key
-Content-Type: application/json
-
-{   
-    "data_exclusao": "2022-11-01",
-    "fk_id_cliente": "1"
-}
