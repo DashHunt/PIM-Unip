@@ -3,6 +3,7 @@ package teste.testado.Repository;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
@@ -15,5 +16,9 @@ public interface ClientesRepository extends JpaRepository<PerfilSite, Long> {
 
     @Query("SELECT C FROM PerfilSite C where C.idCliente=:idCliente")
     List<PerfilSite> findById(@Param("idCliente") Integer idCliente);
+
+    @Modifying
+    @Query("UPDATE PerfilSite C set C.idCliente=:idCliente WHERE C.idCliente=:idCliente")
+    List<PerfilSite> atualizar(@Param("idCliente") Integer idCliente);
     
 }

@@ -3,6 +3,8 @@ package teste.testado.Controller;
 import java.net.URI;
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -52,6 +54,12 @@ public class ClientesController {
         URI uri = uriBuilder.path("/Clientes/{id}").buildAndExpand(cliente.getIdCliente()).toUri();
         return ResponseEntity.created(uri).body(new ClientesDto(cliente));
     }
+
+    @Transactional
+    @RequestMapping(value = "/putClientes", method = RequestMethod.POST)
+    public void atualizar(@RequestBody PerfilSite clientes) {
+		repositorioCliente.save(clientes);
+	}
 
 
 
