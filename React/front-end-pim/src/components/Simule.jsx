@@ -4,6 +4,7 @@ import Lottie from "react-lottie-player";
 
 import lottieJson from "../static/118091-shaking-head-when-driving-front-view.json";
 import Button from "react-bootstrap/esm/Button";
+import { routes } from "../helpers/helpers";
 
 const Simule = () => {
   return (
@@ -24,7 +25,7 @@ const Simule = () => {
                 seguros para você e para a familia
               </p>
               <div>
-                <Button variant="outline-light"> Simule Online Grátis</Button>
+                <Button href={routes.simulacao.path} variant="outline-light"> Simule Online Grátis</Button>
               </div>
             </div>
           </div>

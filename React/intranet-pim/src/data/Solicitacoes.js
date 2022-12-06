@@ -1,129 +1,35 @@
-const Solicitacoes = [
-    {
-        ID: 1,
-        nome: 'Arthur',
-        sobrenome: 'Coutinho',
-        RG: "547689068",
-        RG_data_emissao: "17/01/2017",
-        RG_uf: "SP",
-        endereco_logradouro: "Rua Romeu Ceoloto",
-        endereco_numero: "241",
-        endereco_bairro: "Campos Eliseos",
-        endereco_cep: "14080640",
-        endereco_estado: "SP",
-        endereco_cidade: "Ribeirao Preto",
-        complemento: "Complemento teste",
-        data_nascimento: "25/01/2001",
-        CNH_numero: "1548741887417",
-        CNH_data_emissao: "22/02/2020",
-        Genero: "Masculino",
-        Data_cadastro: "18/11/2022",
-        data_modificacao: "Teste",
-        data_exclusao: "Teste",
-        data_apolice: "Teste",
-        status: "A",
-        ID_cliente: "Teste"
-    },
-    {
-        ID: 2,
-        nome: 'Arthur',
-        sobrenome: 'Coutinho',
-        RG: "Teste",
-        RG_data_emissao: "Teste",
-        RG_uf: "Teste",
-        endereco_logradouro: "Teste",
-        endereco_numero: "Teste",
-        endereco_bairro: "Teste",
-        endereco_cep: "Teste",
-        endereco_estado: "Teste",
-        endereco_cidade: "SP",
-        complemento: "Complemento teste",
-        data_nascimento: "Teste",
-        CNH_numero: "Teste",
-        CNH_data_emissao: "Teste",
-        Genero: "Teste",
-        Data_cadastro: "Teste",
-        data_modificacao: "Teste",
-        data_exclusao: "Teste",
-        data_apolice: "Teste",
-        status: "Teste",
-        ID_cliente: "Teste"
-    },
-    {
-        ID: 3,
-        nome: 'Arthur',
-        sobrenome: 'Coutinho',
-        RG: "Teste",
-        RG_data_emissao: "Teste",
-        RG_uf: "Teste",
-        endereco_logradouro: "Teste",
-        endereco_numero: "Teste",
-        endereco_bairro: "Teste",
-        endereco_cep: "Teste",
-        endereco_estado: "Teste",
-        endereco_cidade: "SP",
-        complemento: "Complemento teste",
-        data_nascimento: "Teste",
-        CNH_numero: "Teste",
-        CNH_data_emissao: "Teste",
-        Genero: "Teste",
-        Data_cadastro: "Teste",
-        data_modificacao: "Teste",
-        data_exclusao: "Teste",
-        data_apolice: "Teste",
-        status: "Teste",
-        ID_cliente: "Teste"
-    },
-    {
-        ID: 4,
-        nome: 'Arthur',
-        sobrenome: 'Coutinho',
-        RG: "Teste",
-        RG_data_emissao: "Teste",
-        RG_uf: "Teste",
-        endereco_logradouro: "Teste",
-        endereco_numero: "Teste",
-        endereco_bairro: "Teste",
-        endereco_cep: "Teste",
-        endereco_estado: "Teste",
-        endereco_cidade: "SP",
-        complemento: "Complemento teste",
-        data_nascimento: "Teste",
-        CNH_numero: "Teste",
-        CNH_data_emissao: "Teste",
-        Genero: "Teste",
-        Data_cadastro: "Teste",
-        data_modificacao: "Teste",
-        data_exclusao: "Teste",
-        data_apolice: "Teste",
-        status: "Teste",
-        ID_cliente: "Teste"
-    },
-    {
-        ID: 5,
-        nome: 'Arthur',
-        sobrenome: 'Coutinho',
-        RG: "Teste",
-        RG_data_emissao: "Teste",
-        RG_uf: "Teste",
-        endereco_logradouro: "Teste",
-        endereco_numero: "Teste",
-        endereco_bairro: "Teste",
-        endereco_cep: "Teste",
-        endereco_estado: "Teste",
-        endereco_cidade: "SP",
-        complemento: "Complemento teste",
-        data_nascimento: "Teste",
-        CNH_numero: "Teste",
-        CNH_data_emissao: "Teste",
-        Genero: "Teste",
-        Data_cadastro: "Teste",
-        data_modificacao: "Teste",
-        data_exclusao: "Teste",
-        data_apolice: "Teste",
-        status: "Teste",
-        ID_cliente: "Teste"
-    },
-]
+function getTodayDate() {
+    const today = new Date();
+    const yyyy = today.getFullYear();
+    let mm = today.getMonth() + 1; // Months start at 0!
+    let dd = today.getDate();
 
-export default Solicitacoes
+    if (dd < 10) dd = "0" + dd;
+    if (mm < 10) mm = "0" + mm;
+
+    return dd + "/" + mm + "/" + yyyy;
+  }
+
+
+const Solicitacoes = {
+  idSolicitacao: "",
+  rg: "",
+  rgDataEmissao: "",
+  enderecoLogradouro: "",
+  enderecoNumero: "",
+  enderecoBairro: "",
+  enderecoCep: "",
+  enderecoEstado: "",
+  dataNascimento: "",
+  cnh: "",
+  cnhDataEmissao: "",
+  genero: "",
+  primeiroNome: "",
+  sobrenome: "",
+  status: "S",
+  dataCadastro: getTodayDate(),
+  dataModificacao: getTodayDate(),
+  coberturas: []
+};
+
+export default Solicitacoes;

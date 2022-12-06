@@ -8,6 +8,14 @@ export function ApiServer(){
     return process.env.REACT_APP_API_PATH + '/'
 }
 
+export function NodeServiceServer(){
+    if(mode() === 'local'){
+        return process.env.REACT_APP_NODE_API
+    }
+
+    return process.env.REACT_APP_API_PATH + '/'
+}
+
 export function CEPApi(){
     return process.env.REACT_APP_CEP_API
 }

@@ -1,0 +1,8 @@
+idFuncionario;
+dataCadastro;
+dataDesligamento;
+email;
+senha;
+sobrenome;
+status;
+username;

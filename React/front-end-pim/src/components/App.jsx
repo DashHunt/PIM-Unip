@@ -1,4 +1,6 @@
-import React from "react";
+import React, { useEffect } from "react";
+
+import SolicitacoesAPI from "../api/Solicitacoes";
 
 import Topbar from "./Topbar/Topbar";
 import Simule from "./Simule";
@@ -7,9 +9,22 @@ import CarouselComponent from "./Carousel/Carousel";
 import { TfiAngleLeft, TfiAngleRight } from "react-icons/tfi";
 import StepByStep from "./StepByStep/StepByStep";
 import Footer from "./Footer/Footer";
-import BackToTop from './BackToTop'
+import BackToTop from "./BackToTop";
 
 const App = () => {
+  useEffect(() => {
+    const solicitacoes = new SolicitacoesAPI();
+
+    solicitacoes
+      .get()
+      .then((data) => {
+        JSON.stringify(console.log(data.data));
+      })
+      .catch((err) => {
+        JSON.stringify(console.log(err));
+      });
+  }, []);
+
   return (
     <>
       <Topbar>
@@ -20,11 +35,12 @@ const App = () => {
             <Simule></Simule>
           </div>
         </section>
-        <section className="bg-white" style={{ height: "100%" }} id="scrollspyHeading1">
-          <div
-            className="d-flex justify-content-center align-items-center text-dark"
-            
-          >
+        <section
+          className="bg-white"
+          style={{ height: "100%" }}
+          id="scrollspyHeading1"
+        >
+          <div className="d-flex justify-content-center align-items-center text-dark">
             <CarouselComponent></CarouselComponent>
           </div>
         </section>
@@ -40,7 +56,11 @@ const App = () => {
           className="bg-light bg-gradient shadow-sm text-dark border-top"
           style={{ height: "100%" }}
         >
-          <div className="d-flex justify-content-center align-items-center" style={{ fontFamily: "Poppins, sans-serif" }} id="scrollspyHeading3">
+          <div
+            className="d-flex justify-content-center align-items-center"
+            style={{ fontFamily: "Poppins, sans-serif" }}
+            id="scrollspyHeading3"
+          >
             <Footer></Footer>
           </div>
         </section>

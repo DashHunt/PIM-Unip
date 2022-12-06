@@ -1,10 +1,15 @@
 const SolicitacoesColumns = [
   {
-    dataField: "ID",
+    dataField: "idSolicitacao",
     text: "ID Solicitacao",
+    sort: true,
+    headerStyle: (colum, colIndex) => {
+      return { width: '120px', cursor: 'pointer'};
+    },
+    hidden: true
   },
   {
-    dataField: "nome",
+    dataField: "primeiroNome",
     text: "Nome",
   },
   {
@@ -12,43 +17,47 @@ const SolicitacoesColumns = [
     text: "Sobrenome",
   },
   {
-    dataField: "ID_cliente",
+    dataField: "idCliente",
     text: "ID Cliente",
+    sort: true,
+    headerStyle: (colum, colIndex) => {
+      return { width: '120px', cursor: 'pointer'};
+    },
   },
   {
     dataField: "status",
     text: "Status",
   },
   {
-    dataField: "RG",
+    dataField: "rg",
     text: "RG",
   },
   {
-    dataField: "RG_data_emissao",
+    dataField: "rgDataEmissao",
     text: "RG data emissao",
   },
   {
-    dataField: "RG_uf",
+    dataField: "rgUf",
     text: "RG UF",
   },
   {
-    dataField: "endereco_logradouro",
+    dataField: "enderecoLogradouro",
     text: "Rua",
   },
   {
-    dataField: "endereco_bairro",
+    dataField: "enderecoBairro",
     text: "Bairro",
   },
   {
-    dataField: "endereco_numero",
+    dataField: "enderecoNumero",
     text: "Numero",
   },
   {
-    dataField: "endereco_cep",
+    dataField: "enderecoCep",
     text: "CEP",
   },
   {
-    dataField: "Genero",
+    dataField: "genero",
     text: "Gênero",
   },
 ];

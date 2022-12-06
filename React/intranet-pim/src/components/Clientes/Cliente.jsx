@@ -1,14 +1,45 @@
 // eslint-disable-next-line
 import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 import { Formik, Form } from "formik";
 import * as Yup from "yup";
 
 import TextInput from "../Inputs/TextInput";
 
+import { FcCheckmark, FcHighPriority } from "react-icons/fc";
+import SpinnerComponent from "../Spinner";
+import LoadingModal from "../LoadingModal";
+
+import Sleep from "../../data/Sleep";
 import Clientes from "../../data/Clientes";
 import BackToTop from "../BackToTop";
+import ClientesAPI from "../../api/Clientes";
 
 const ClienteComponent = (props) => {
+  const { id } = useParams();
+  const [clientes, setClientes] = useState({});
+
+  const [fetchLoading, setFetchLoading] = useState(false);
+  const [modalMessage, setModalMessage] = useState("");
+  const [modalIcon, setModalIcon] = useState(null);
+
+  useEffect(() => {
+    const clientes = new ClientesAPI();
+
+    if (id !== undefined) {
+      console.log("Diferente de vazio");
+      clientes
+        .getByID(id)
+        .then((data) => {
+          setClientes(data.data);
+        })
+        .catch((error) => console.log(error));
+    } else {
+      console.log(Clientes);
+      setClientes(Clientes);
+    }
+  }, []);
+
   const handleOnKeyDown = (keyEvent) => {
     if ((keyEvent.charCode || keyEvent.keyCode) === 13) {
       keyEvent.preventDefault();
@@ -19,11 +50,71 @@ const ClienteComponent = (props) => {
   return (
     <>
       <Formik
-        initialValues={Clientes[0]}
+        initialValues={clientes[0]}
         enableReinitialize
-        validationSchema={Yup.object().shape({})}
+        validationSchema={Yup.object().shape({
+          email: Yup.string().email("E-mail inválido").required("Required"),
+          primeiroNome: Yup.string().required("Required"),
+          sobrenome: Yup.string().required("Required"),
+          senha: Yup.string()
+            .required("Required")
+            .min(8, "Senha deve conter no minimo 8 caracteres"),
+          cpf: Yup.string().required("Required"),
+        })}
         onSubmit={(values, { setSubmitting }) => {
-          console.log(values);
+          if (id !== undefined) {
+            console.log("Edicao");
+
+            setModalMessage("Atualizando cliente");
+            setModalIcon(<SpinnerComponent></SpinnerComponent>);
+            setFetchLoading(true);
+
+            const clientes = new ClientesAPI();
+
+            clientes
+              .update(values)
+              .then((res) => {
+                setModalMessage("Operação realizada com sucesso");
+                setModalIcon(
+                  <FcCheckmark
+                    style={{ height: "30px", width: "30px" }}
+                  ></FcCheckmark>
+                );
+                Sleep(1000).then(() => {
+                  setFetchLoading(false);
+                  setSubmitting(false);
+                });
+              })
+              .catch((error) => {
+                console.log(error);
+              });
+          } else {
+            console.log("Inclusao");
+
+            setModalMessage("Incluindo cliente");
+            setModalIcon(<SpinnerComponent></SpinnerComponent>);
+            setFetchLoading(true);
+
+            const clientes = new ClientesAPI();
+
+            clientes
+              .post(values)
+              .then((res) => {
+                setModalMessage("Operação realizada com sucesso");
+                setModalIcon(
+                  <FcCheckmark
+                    style={{ height: "30px", width: "30px" }}
+                  ></FcCheckmark>
+                );
+                Sleep(1000).then(() => {
+                  setFetchLoading(false);
+                  setSubmitting(false);
+                });
+              })
+              .catch((error) => {
+                console.log(error);
+              });
+          }
         }}
       >
         {({ isSubmitting, handleChange, values, setFieldValue }) => (
@@ -34,7 +125,7 @@ const ClienteComponent = (props) => {
             </div>
             <TextInput
               label="Primeiro nome"
-              name="primeiro_nome"
+              name="primeiroNome"
               type="text"
               placeholder="Primeiro nome"
             />
@@ -44,7 +135,7 @@ const ClienteComponent = (props) => {
               type="text"
               placeholder="Sobrenome"
             />
-            <TextInput label="CPF" name="CPF" type="text" placeholder="CPF" />
+            <TextInput label="CPF" name="cpf" type="text" placeholder="CPF" />
             <TextInput
               label="E-mail"
               name="email"
@@ -82,22 +173,20 @@ const ClienteComponent = (props) => {
                   {" "}
                   Salvar
                 </button>
-                {props.edit ? (
-                  <button
-                    type="button"
-                    className="btn btn-danger shadow-sm"
-                    style={{ width: "100px" }}
-                  >
-                    {" "}
-                    Deletar
-                  </button>
-                ) : null}
               </div>
             </div>
             <hr />
           </Form>
         )}
       </Formik>
+      {fetchLoading ? (
+        <LoadingModal
+          show={fetchLoading}
+          title={modalMessage}
+          body={modalMessage}
+          icon={modalIcon}
+        ></LoadingModal>
+      ) : null}
       <BackToTop></BackToTop>
     </>
   );

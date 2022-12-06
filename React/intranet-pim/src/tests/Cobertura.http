@@ -1,0 +1,3 @@
+###POST solicitacao
+DELETE http://localhost:8091/deleteCoberturas?idSolicitacao=23&descricao=Seguro%20buraco
+Content-Type: application/json

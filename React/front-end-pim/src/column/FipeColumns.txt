@@ -1,0 +1,6 @@
+idCarro;
+marca;
+modelo;
+ano;
+tipo;
+valor;

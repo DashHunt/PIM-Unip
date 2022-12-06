@@ -42,16 +42,21 @@ function Topbar(props) {
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
           <Navbar.Collapse id="responsive-navbar-nav">
             <Nav className="me-auto">
-              <Nav.Link href={routes.clienteAll.path}>
-                {strings.topBarClientes}
-              </Nav.Link>
+              {localStorage.getItem("role") === "admin" ||
+              localStorage.getItem("role") === "godmode" ? (
+                <Nav.Link href={routes.clienteAll.path}>
+                  {strings.topBarClientes}
+                </Nav.Link>
+              ) : null}
               <Nav.Link href={routes.solicitacaoAll.path}>
                 {strings.topBarSolicitacoes}
               </Nav.Link>
-              <Nav.Link href={routes.metricas.path}>{strings.topBarMetricas}</Nav.Link>
+              <Nav.Link href={routes.metricas.path}>
+                {strings.topBarMetricas}
+              </Nav.Link>
 
-              
-              {localStorage.getItem("role") === "admin" ? (
+              {localStorage.getItem("role") === "admin" ||
+              localStorage.getItem("role") === "godmode" ? (
                 <NavDropdown
                   title={strings.topBarAtalhos}
                   id="collasible-nav-dropdown"

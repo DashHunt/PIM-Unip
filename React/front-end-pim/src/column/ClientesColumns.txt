@@ -1,0 +1,6 @@
+idCliente;
+cpf;
+email;
+primeiroNome;
+senha;
+sobrenome;

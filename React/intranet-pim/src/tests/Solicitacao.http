@@ -1,0 +1,3 @@
+###POST solicitacao
+DELETE http://localhost:8091/deleteSolicitacoes?idSolicitacao=5
+Content-Type: application/json

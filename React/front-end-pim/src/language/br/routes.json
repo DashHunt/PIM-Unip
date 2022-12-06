@@ -10,5 +10,13 @@
     "login": {
         "path": "/AS/login",
         "label": "Login"
+    },
+    "simulacao": {
+        "path": "/AS/simulacao",
+        "label": "Simulacao"
+    },
+    "cadastro": {
+        "path": "/AS/cadastro",
+        "label": "Cadastro"
     }
 }

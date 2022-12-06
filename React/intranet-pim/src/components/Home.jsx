@@ -14,7 +14,7 @@ const Home = () => {
     <Topbar>
       <div style={{ height: "30px" }}></div>
       <div className="text-center" style={{ color: "#000b76" }}>
-        <h1 className="ms-4">{strings.mensagemDeEntrada + localStorage.getItem('user')}</h1>
+        <h1 className="ms-4">{strings.mensagemDeEntrada + localStorage.getItem('username')}</h1>
         <h4 className="ms-4">{strings.bemVindo}</h4>
         <div>
           <img

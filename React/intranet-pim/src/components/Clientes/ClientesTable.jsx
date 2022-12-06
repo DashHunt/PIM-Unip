@@ -6,12 +6,14 @@ import { strings, routes } from "../../helpers/helpers";
 
 import BootstrapTable from "react-bootstrap-table-next";
 import { BiEditAlt, BiTrash } from "react-icons/bi";
+import { BsEye } from "react-icons/bs";
 
 import Clientes from "../../data/Clientes";
 import ClientesColumns from "../../data/ClientesColumns";
 import Topbar from "../Topbar";
 import LoadingSpinner from "../LoadingSpinner";
 import { Button } from "react-bootstrap";
+import ClientesAPI from "../../api/Clientes";
 
 const ClientesTable = () => {
   const [loading, setLoading] = useState(true);
@@ -20,11 +22,20 @@ const ClientesTable = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    setTimeout(() => {
-      addActionColumns();
-      setClientes(Clientes);
-      setLoading(false);
-    }, 2000);
+    addActionColumns();
+
+    const clientes = new ClientesAPI();
+
+    clientes
+      .get()
+      .then((data) => {
+        console.log(data.data);
+        setClientes(data.data);
+
+        setLoading(false);
+      })
+      .catch((error) => {});
+
     // eslint-disable-next-line
   }, []);
 
@@ -45,24 +56,26 @@ const ClientesTable = () => {
   }
 
   function HandleEdit(row) {
-    navigate("/PIM/cliente/" + row.ID_cliente);
+    navigate("/PIM/cliente/" + row.idCliente);
   }
 
   const Actions = (data, row) => {
     return (
       <>
-        <div>
-          <span style={{ color: "green", cursor: "pointer" }}>
-            <BiEditAlt
-              onClick={() => {
-                HandleEdit(row);
-              }}
-            ></BiEditAlt>
-          </span>
-          <span style={{ color: "red", cursor: "pointer" }}>
-            <BiTrash></BiTrash>
-          </span>
-        </div>
+        {localStorage.getItem("role") === "godmode" ||
+        localStorage.getItem("role") === "admin" ? (
+          <div>
+            <span style={{ color: "green", cursor: "pointer" }}>
+              <BiEditAlt onClick={() => HandleEdit(row)}></BiEditAlt>
+            </span>
+          </div>
+        ) : 
+          <div>
+            <span style={{ color: "blue", cursor: "pointer" }}>
+              <BsEye onClick={() => HandleEdit(row)}></BsEye>
+            </span>
+          </div>
+        }
       </>
     );
   };

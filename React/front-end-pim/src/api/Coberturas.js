@@ -1,25 +1,31 @@
 import axios from 'axios'
 import {ApiServer} from '../server/server'
 
-export default class APIExample{
+export default class CoberturasAPI{
     constructor(){
-        this.Flag = 'CEP'
+        this.Flag = 'Coberturas'
         this.axiosInstance = new axios.create({
             timeout: 100000000,
             baseURL: ApiServer(),
             headers: {
                 'Content-Type': 'application/json; charset=UTF-8',
                 'Accept': 'application/json; charset=UTF-8',
-                'X-Header-Token': process.env.REACT_APP_X_HEADER_TOKEN,
-                'X-Header-Token-Query': process.env.REACT_APP_X_HEADER_TOKEN_QUERY
             }
         })
     }
 
-    get(cep){
+    get(){
         const config = {
             method: 'GET',
-            url: ApiServer() + '/apiExample'
+            url: ApiServer() + '/getCoberturas'
+        }
+        return this.axiosInstance(config)
+    }
+    post(data){
+        const config = {
+            method: 'POST',
+            url: ApiServer() + '/postCoberturas',
+            data: data
         }
         return this.axiosInstance(config)
     }

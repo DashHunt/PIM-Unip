@@ -1,10 +1,11 @@
 const ClientesColumns = [
   {
-    dataField: "ID_cliente",
+    dataField: "idCliente",
     text: "ID Cliente",
+    hidden: true
   },
   {
-    dataField: "CPF",
+    dataField: "cpf",
     text: "CPF",
   },
   {
@@ -12,7 +13,7 @@ const ClientesColumns = [
     text: "E-mail",
   },
   {
-    dataField: "primeiro_nome",
+    dataField: "primeiroNome",
     text: "Primeiro nome",
   },
   {
