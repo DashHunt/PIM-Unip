@@ -29,6 +29,7 @@ const CadastroOne = (props) => {
   }, []);
 
   const getFormatedDate = (currentDate) => {
+    console.log(currentDate.split("/").reverse().join("-"))
     return currentDate.split("/").reverse().join("-");
   };
 

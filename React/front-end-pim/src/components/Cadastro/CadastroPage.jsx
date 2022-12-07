@@ -70,6 +70,7 @@ const CadastroPage = () => {
         tipos,
         valorFipe,
         valorTotalIdade,
+        idCarro
       } = JSON.parse(localStorage.getItem("simulacao"));
       setData({
         ...data,
@@ -90,6 +91,7 @@ const CadastroPage = () => {
         tipos,
         valorFipe,
         valorTotalIdade,
+        idCarro
       });
     } else {
       setData({

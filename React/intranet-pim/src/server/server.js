@@ -13,7 +13,7 @@ export function NodeServiceServer(){
         return process.env.REACT_APP_NODE_API
     }
 
-    return process.env.REACT_APP_API_KEY
+    return process.env.REACT_APP_NODE_API_PROD
 }
 
 export function CEPApi(){
@@ -24,9 +24,7 @@ function mode(){
     const url = new URL(document.location.href)
     const prefix = url.hostname.substring(0, 2)
 
-    if(prefix === 'br'){
-        return 'dev'
-    }else if(prefix === 'xw'){
+    if(prefix === '19'){
         return 'prod'
     }
 

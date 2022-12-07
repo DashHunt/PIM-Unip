@@ -12,6 +12,11 @@ const CadastroThree = (props) => {
     props.next(values);
   };
 
+  const getFormatedDate = (currentDate) => {
+    console.log(currentDate.split("/").reverse().join("-"))
+    return currentDate.split("/").reverse().join("-");
+  };
+
   return (
     <Formik
       initialValues={props.data}
@@ -22,7 +27,12 @@ const CadastroThree = (props) => {
         enderecoLogradouro: Yup.string().required("Required"),
         enderecoNumero: Yup.string().required("Required"),
         cnh: Yup.string().required("Required"),
-        cnhDataEmissao: Yup.string().required("Required"),
+        cnhDataEmissao: Yup.date()
+          .required("Required")
+          .max(
+            getFormatedDate(new Date().toLocaleDateString()),
+            "Data de emissão deve ser menor que hoje"
+          ),
       })}
       onSubmit={handleSubmit}
       enableReinitialize

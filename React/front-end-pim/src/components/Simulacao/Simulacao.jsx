@@ -32,6 +32,7 @@ const Simulacao = () => {
   const [valorTotalCoberturas, setValorTotalCoberturas] = useState(0);
   const [valorTotalIdade, setValorTotalIdade] = useState(0);
   const [valorTotal, setValorTotal] = useState(0);
+  const [idCarro, setIdCarro] = useState(null)
 
   function getCarro(values, tipo) {
     console.log("Calculate Values");
@@ -48,6 +49,7 @@ const Simulacao = () => {
           el.tipo == tipo
         );
       });
+      setIdCarro(newArray[0].idCarro)
       resolve(newArray[0].valor);
     });
   }
@@ -317,6 +319,10 @@ const Simulacao = () => {
         values["valorFipe"] = valorTotalCarro;
         values["valorTotalIdade"] = valorTotalIdade;
 
+        if (idCarro !== null){
+          values["idCarro"] = idCarro;
+        }
+
         if (localStorage.getItem("user") !== null) {
           if (localStorage.getItem("simulacao") !== null){
             localStorage.removeItem("simulacao")
@@ -475,7 +481,7 @@ const Simulacao = () => {
                           <option value="Casco">Casco</option>
                           <option value="Furto ou roubo">Furto ou roubo</option>
                           <option value="Danos parciais">Danos parciais</option>
-                          <option value="Danos totais">Perda total</option>
+                          <option value="Perda total">Perda total</option>
                           <option value="Seguro buraco">Seguro buraco</option>
                         </FormBoostrap.Select>
 
