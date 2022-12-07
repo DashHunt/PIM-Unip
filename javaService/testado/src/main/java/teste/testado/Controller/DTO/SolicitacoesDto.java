@@ -26,6 +26,7 @@ public class SolicitacoesDto {
     private String status;
     private Integer idCliente;
     private String valorTotal;
+    private String idCarro;
 
     public SolicitacoesDto(Solicitacoes solicitacoes){
         this.idSolicitacao = solicitacoes.getIdSolicitacao();
@@ -48,6 +49,7 @@ public class SolicitacoesDto {
         this.status = solicitacoes.getStatus();
         this.idCliente = solicitacoes.getIdCliente();
         this.valorTotal = solicitacoes.getValorTotal();
+        this.idCarro = solicitacoes.getIdCarro();
     }
 
     public Integer getIdSolicitacao() {
@@ -110,6 +112,10 @@ public class SolicitacoesDto {
     
     public String getValorTotal() {
         return valorTotal;
+    }
+    
+    public String getIdCarro() {
+        return idCarro;
     }
 
     public static List<SolicitacoesDto> converter(List<Solicitacoes> list) {

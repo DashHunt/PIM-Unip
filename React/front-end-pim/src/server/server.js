@@ -5,7 +5,7 @@ export function ApiServer(){
         return process.env.REACT_APP_API_KEY
     }
 
-    return process.env.REACT_APP_API_PATH + '/'
+    return process.env.REACT_APP_API_KEY
 }
 
 export function CEPApi(){

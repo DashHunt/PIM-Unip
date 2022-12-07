@@ -1,15 +1,14 @@
 function getTodayDate() {
-    const today = new Date();
-    const yyyy = today.getFullYear();
-    let mm = today.getMonth() + 1; // Months start at 0!
-    let dd = today.getDate();
+  const today = new Date();
+  const yyyy = today.getFullYear();
+  let mm = today.getMonth() + 1; // Months start at 0!
+  let dd = today.getDate();
 
-    if (dd < 10) dd = "0" + dd;
-    if (mm < 10) mm = "0" + mm;
+  if (dd < 10) dd = "0" + dd;
+  if (mm < 10) mm = "0" + mm;
 
-    return dd + "/" + mm + "/" + yyyy;
-  }
-
+  return dd + "/" + mm + "/" + yyyy;
+}
 
 const Solicitacoes = {
   idSolicitacao: "",
@@ -29,7 +28,10 @@ const Solicitacoes = {
   status: "S",
   dataCadastro: getTodayDate(),
   dataModificacao: getTodayDate(),
-  coberturas: []
+  marca: "",
+  modelo: "",
+  ano: "",
+  tipo: "",
 };
 
 export default Solicitacoes;

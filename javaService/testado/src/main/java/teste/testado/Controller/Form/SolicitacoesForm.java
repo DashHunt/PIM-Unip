@@ -24,6 +24,7 @@ public class SolicitacoesForm {
     private String status;
     private Integer idCliente;
     private String valorTotal;
+    private String idCarro;
     
     public Integer getIdSolicitacao() {
         return idSolicitacao;
@@ -143,12 +144,21 @@ public class SolicitacoesForm {
     public String getValorTotal() {
         return valorTotal;
     }
+
     public void setValorTotal(String valorTotal) {
         this.valorTotal = valorTotal;
     }
 
+    public String getIdCarro() {
+        return idCarro;
+    }
+
+    public void setIdCarro(String idCarro) {
+        this.idCarro = idCarro;
+    }
+
     public Solicitacoes converter() {
-        return new Solicitacoes(idSolicitacao, rg, rgDataEmissao, rgUf, enderecoLogradouro, enderecoNumero, enderecoBairro, enderecoCep, enderecoEstado, dataNascimento, cnh, cnhDataEmissao, genero, dataCadastro, dataModificacao, dataExclusao, dataApolice, status, idCliente, valorTotal);
+        return new Solicitacoes(idSolicitacao, rg, rgDataEmissao, rgUf, enderecoLogradouro, enderecoNumero, enderecoBairro, enderecoCep, enderecoEstado, dataNascimento, cnh, cnhDataEmissao, genero, dataCadastro, dataModificacao, dataExclusao, dataApolice, status, idCliente, valorTotal, idCarro);
     }
     
 }

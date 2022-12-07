@@ -46,7 +46,8 @@ const CadastroTwo = (props) => {
         ano: values.ano,
         anos: values.anos,
         valorFipe: newArray[0].valor,
-        utilizacao: values.utilizacao
+        utilizacao: values.utilizacao,
+        idCarro: newArray[0].idCarro
       }));
       resolve(newArray[0].valor);
     });
@@ -288,6 +289,8 @@ const CadastroTwo = (props) => {
     props.next(values);
   };
 
+  
+
   return (
     <Formik
       initialValues={props.data}
@@ -302,7 +305,7 @@ const CadastroTwo = (props) => {
       })}
       onSubmit={handleSubmit}
     >
-      {({ isSubmitting, handleChange, handleBlur, values, setFieldValue }) => (
+      {({ isSubmitting, handleChange, handleBlur, values, setFieldValue, errors }) => (
         <Form className="row g-3" onKeyDown={handleOnKeyDown}>
           <div className="text-primary">
             <h6 style={{ fontWeight: "bold" }}>Informações do carro</h6>

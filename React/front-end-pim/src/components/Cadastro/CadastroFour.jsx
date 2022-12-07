@@ -134,31 +134,63 @@ const CadastroFour = (props) => {
   }
 
   useEffect(() => {
-    console.log(adicionaValoresCoberturas());
-    setValorTotal(adicionaValoresCoberturas());
-  }, [coberturas]);
-
-  useEffect(() => {
+    console.log("Mexi");
+    const novoValor = adicionaValoresCoberturas();
+    setValorTotal(novoValor);
     props.setNewData((prev) => ({
       ...prev,
       valorTotal: valorTotal,
       coberturas: coberturas,
     }));
-  }, [valorTotal]);
+  }, [coberturas]);
+
+  // useEffect(() => {
+  //   props.setNewData((prev) => ({
+  //     ...prev,
+  //     valorTotal: valorTotal,
+  //     coberturas: coberturas,
+  //   }));
+  // }, [valorTotal]);
+
+  // Yup.addMethod(Yup.array, "unique", function (message, mapper = (a) => a) {
+  //   return this.test("unique", message, function (list) {
+  //     console.log(list.length === new Set(list.map(mapper)).size);
+  //     return list.length === new Set(list.map(mapper)).size;
+  //   });
+  // });
+
+  function removeCobertura(values, index,  arrayHelpers) {
+    console.log("OnClick");
+    if (maxCoberturas) {
+      setMaxCoberturas(!maxCoberturas);
+    }
+
+    const tempCoberturas = [...coberturas];
+
+    const indexAtt = tempCoberturas.indexOf(values.coberturas[index]);
+    if (indexAtt !== -1) {
+      tempCoberturas.splice(indexAtt, 1);
+    }
+
+    console.log(tempCoberturas);
+    arrayHelpers.remove(index);
+    return tempCoberturas
+  }
 
   return (
     <Formik
       validationSchema={Yup.object().shape({
         coberturas: Yup.array()
-          .required("Escolha pelo menos uma cobertura") // these constraints are shown if and only if inner constraints are satisfied
+          .of(Yup.string().required("Escolha pelo menos uma cobertura"))
           .min(1, "Minimum of 1 friends")
           .max(6, "Maximo de 6 coberturas por solicitação"),
+        // .unique("Valores tem que ser unicos"),
       })}
       initialValues={props.data}
       onSubmit={handleSubmit}
       enableReinitialize
     >
-      {({ handleChange, values }) => (
+      {({ handleChange, values, errors }) => (
         <Form
           className="row g-3"
           onKeyDown={props.handleOnKeyDown}
@@ -221,17 +253,21 @@ const CadastroFour = (props) => {
                         <Button
                           variant="outline-secondary"
                           id="button-addon2"
-                          onClick={() => {
-                            if (maxCoberturas) {
-                              setMaxCoberturas(!maxCoberturas);
-                            }
-                            console.log(atualizaValorTotal());
-                            arrayHelpers.remove(index);
-                          }}
+                          onClick={() => setCoberturas(removeCobertura(values, index, arrayHelpers))}
                         >
                           X
                         </Button>
                       </InputGroup>
+                      {errors &&
+                      errors.coberturas &&
+                      errors.coberturas[index] ? (
+                        <div className="text-danger mb-3">
+                          {typeof errors.coberturas === "object" &&
+                          errors.coberturas.length > 1
+                            ? errors.coberturas[0]
+                            : errors.coberturas}{" "}
+                        </div>
+                      ) : null}
                     </div>
                   ))
                 ) : (

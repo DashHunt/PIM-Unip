@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import {useNavigate} from "react-router-dom"
+import { useNavigate } from "react-router-dom";
 // eslint-disable-next-line
 import { Formik, Form, Field, FieldArray } from "formik";
 import * as Yup from "yup";
@@ -54,11 +54,11 @@ const Simulacao = () => {
 
   useEffect(() => {
     if (values !== null) {
-      console.log(values)
+      console.log(values);
       setValorTotalCarro(values);
     }
   }, [values]);
-  
+
   useEffect(() => {
     console.log(coberturas);
     coberturas.forEach((cobertura) => {
@@ -276,15 +276,34 @@ const Simulacao = () => {
     }
   };
 
+  Yup.addMethod(Yup.array, "unique", function (message, mapper = (a) => a) {
+    return this.test("unique", message, function (list) {
+      console.log(list.length === new Set(list.map(mapper)).size);
+      return list.length === new Set(list.map(mapper)).size;
+    });
+  });
+
+  const initialValues = {
+    coberturas: [],
+    idade: "",
+    marca: "",
+    modelo: "",
+    ano: "",
+    tipo: "",
+    utilizacao: "",
+  };
+
   return (
     <Formik
-      initialValues={{ coberturas: [] }}
+      initialValues={initialValues}
       enableReinitialize
       validationSchema={Yup.object().shape({
         coberturas: Yup.array()
-          .required("Escolha pelo menos uma cobertura") // these constraints are shown if and only if inner constraints are satisfied
+          .of(Yup.string().required("Escolha pelo menos uma cobertura"))
           .min(1, "Minimum of 1 friends")
-          .max(6, "Maximo de 6 coberturas por solicitação"),
+          .max(6, "Maximo de 6 coberturas por solicitação")
+          // these constraints are shown if and only if inner constraints are satisfied
+          .unique("Valores tem que ser unicos"),
         idade: Yup.string().required("Required"),
         marca: Yup.string().required("Required"),
         modelo: Yup.string().required("Required"),
@@ -294,21 +313,32 @@ const Simulacao = () => {
       })}
       onSubmit={(values, { setSubmitting }) => {
         const coberturas = values["coberturas"];
-        values["valorTotal"] = valorTotal
-        values["valorFipe"] = valorTotalCarro
-        values["valorTotalIdade"] = valorTotalIdade
-        
-        if(localStorage.getItem("user") !== null){
-          localStorage.setItem('simulacao', JSON.stringify(values));
-          navigate(routes.cadastro.path)
-        }else{
-          navigate(routes.login.path)
+        values["valorTotal"] = valorTotal;
+        values["valorFipe"] = valorTotalCarro;
+        values["valorTotalIdade"] = valorTotalIdade;
+
+        if (localStorage.getItem("user") !== null) {
+          if (localStorage.getItem("simulacao") !== null){
+            localStorage.removeItem("simulacao")
+          }
+          localStorage.setItem("simulacao", JSON.stringify(values));
+          navigate(routes.cadastro.path);
+        } else {
+          navigate(routes.login.path);
         }
         console.log(values);
         console.log(coberturas);
       }}
     >
-      {({ isSubmitting, handleChange, handleBlur, values, setFieldValue }) => (
+      {({
+        isSubmitting,
+        handleChange,
+        handleBlur,
+        values,
+        setFieldValue,
+        errors,
+        touched,
+      }) => (
         <Form className="row g-3" onKeyDown={handleOnKeyDown}>
           <div className="text-center text-primary text-bold mt-5">
             <h3 style={{ fontWeight: "bold" }}>Olá, vamos começar? ;D</h3>
@@ -448,6 +478,7 @@ const Simulacao = () => {
                           <option value="Danos totais">Perda total</option>
                           <option value="Seguro buraco">Seguro buraco</option>
                         </FormBoostrap.Select>
+
                         <Button
                           variant="outline-secondary"
                           id="button-addon2"
@@ -475,6 +506,13 @@ const Simulacao = () => {
                           X
                         </Button>
                       </InputGroup>
+                      {errors &&
+                      errors.coberturas &&
+                      errors.coberturas[index] ? (
+                        <div className="text-danger mb-3">
+                          {typeof(errors.coberturas) === 'object' && errors.coberturas.length > 1 ? errors.coberturas[0]: errors.coberturas}{" "}
+                        </div>
+                      ) : null}
                     </div>
                   ))
                 ) : (
@@ -490,6 +528,7 @@ const Simulacao = () => {
                     Adicione uma cobertura
                   </Button>
                 )}
+
                 <Button
                   type="button"
                   onClick={() => {

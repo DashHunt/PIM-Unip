@@ -55,10 +55,8 @@ public class SolicitacoesController {
 	}
 
     @DeleteMapping("/deleteSolicitacoes")
-    public ResponseEntity<Object> deleteSolicitacoesById(Integer idSolicitacao) {
-
+    public void deleteSolicitacoesById(Integer idSolicitacao) {
         repositorioSolicitacoes.deleteById(idSolicitacao);
-        return ResponseEntity.ok("Deleted");
      }
 
 }

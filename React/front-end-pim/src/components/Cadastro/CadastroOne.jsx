@@ -19,7 +19,12 @@ const CadastroOne = (props) => {
   useEffect(() => {
     const UFApi = new UF();
     UFApi.get()
-      .then((res) => setUFs(res.data))
+      .then((res) => {
+        const sortedData = res.data.sort((a, b) =>
+          a.sigla > b.sigla ? 1 : b.sigla > a.sigla ? -1 : 0
+        );
+        setUFs(sortedData);
+      })
       .catch((error) => console.log(error));
   }, []);
 
@@ -37,11 +42,11 @@ const CadastroOne = (props) => {
         sobrenome: Yup.string().required("Required"),
         idCliente: Yup.string().required("Required"),
         rgDataEmissao: Yup.date()
+          .required("Required")
           .max(
             getFormatedDate(new Date().toLocaleDateString()),
             "Data de emissão deve ser menor que hoje"
-          )
-          .required("Campo obrigatório"),
+          ),
         rgUf: Yup.string().required("Required"),
         rg: Yup.string().required("Required"),
         genero: Yup.string().required("Required"),

@@ -1,29 +1,14 @@
-import React, { useEffect } from "react";
-
-import SolicitacoesAPI from "../api/Solicitacoes";
+import React from "react";
 
 import Topbar from "./Topbar/Topbar";
 import Simule from "./Simule";
 import CarouselComponent from "./Carousel/Carousel";
 
-import { TfiAngleLeft, TfiAngleRight } from "react-icons/tfi";
 import StepByStep from "./StepByStep/StepByStep";
 import Footer from "./Footer/Footer";
 import BackToTop from "./BackToTop";
 
 const App = () => {
-  useEffect(() => {
-    const solicitacoes = new SolicitacoesAPI();
-
-    solicitacoes
-      .get()
-      .then((data) => {
-        JSON.stringify(console.log(data.data));
-      })
-      .catch((err) => {
-        JSON.stringify(console.log(err));
-      });
-  }, []);
 
   return (
     <>

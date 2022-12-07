@@ -5,6 +5,13 @@ import { Formik, Form, FieldArray } from "formik";
 import * as Yup from "yup";
 import { trackPromise } from "react-promise-tracker";
 
+import {
+  getCarro,
+  getModelos,
+  getAnos,
+  getTipos,
+} from "../../data/DependentFields";
+
 import TextInput from "../Inputs/TextInput";
 import Select from "../Inputs/Select";
 import FormBoostrap from "react-bootstrap/Form";
@@ -22,6 +29,7 @@ import Sleep from "../../data/Sleep";
 import BackToTop from "../BackToTop";
 import SolicitacoesAPI from "../../api/Solicitacoes";
 import ClientesAPI from "../../api/Clientes";
+import FipeAPI from "../../api/Fipe";
 import ClienteSearcher from "../Inputs/ClientSearcher";
 import CoberturasAPI from "../../api/Coberturas";
 import SpinnerComponent from "../Spinner";
@@ -49,6 +57,46 @@ const SolicitacaoComponent = (props) => {
   const [loading, setLoading] = useState(true);
   const [confirmation, setConfirmation] = useState(false);
   const [maxCoberturas, setMaxCoberturas] = useState(false);
+
+  const [fipe, setFipe] = useState(null);
+  const [carro, setValues] = useState(null);
+  const [fieldValues, setFieldValues] = useState({});
+  const [marcas, setMarcas] = useState(null);
+
+  function removeDuplicates(arrayOfObjects) {
+    let newArray = arrayOfObjects.map((o) => ({ marca: o.marca }));
+
+    newArray = newArray.reduce((unique, o) => {
+      if (!unique.some((obj) => obj.marca === o.marca)) {
+        unique.push(o);
+      }
+      return unique;
+    }, []);
+
+    return newArray;
+  }
+
+  useEffect(() => {
+    if (carro !== null) {
+      setSolicitacoes((current) =>
+        current.map((obj) => {
+          return {
+            ...obj,
+            valorFipe: carro.valor,
+            modelo: carro.modelo,
+            marca: carro.marca,
+            tipo: carro.tipo,
+            ano: carro.ano,
+            modelos: [{ modelo: carro.modelo }],
+            anos: [{ ano: carro.ano }],
+            tipos: [{ tipo: carro.tipo }],
+          };
+        })
+      );
+    }
+  }, [carro]);
+
+  console.log(solicitacao);
 
   function handleDelete(values) {
     setValuesSolicitacao(values);
@@ -180,8 +228,10 @@ const SolicitacaoComponent = (props) => {
         solicitacoes
           .getByID(id)
           .then((dataSolicitacoes) => {
+            console.log(dataSolicitacoes.data);
             const clientes = new ClientesAPI();
             const coberturasAPI = new CoberturasAPI();
+            const fipe = new FipeAPI();
 
             clientes
               .getByID(dataSolicitacoes.data[0].idCliente)
@@ -197,6 +247,28 @@ const SolicitacaoComponent = (props) => {
                     clienteInfo[0].sobrenome;
                   dataSolicitacoes.data[index]["idCliente"] =
                     clienteInfo[0].idCliente;
+                  fipe
+                    .getCarro(dataSolicitacoes.data[0].idCarro)
+                    .then((res) => {
+                      dataSolicitacoes.data[index]["marca"] = res.data[0].marca;
+                      dataSolicitacoes.data[index]["modelo"] =
+                        res.data[0].modelo;
+                      dataSolicitacoes.data[index]["modelos"] = [
+                        { modelo: res.data[0].modelo },
+                      ];
+                      dataSolicitacoes.data[index]["ano"] = res.data[0].ano;
+                      dataSolicitacoes.data[index]["anos"] = [
+                        { ano: res.data[0].ano },
+                      ];
+                      dataSolicitacoes.data[index]["tipo"] = res.data[0].tipo;
+                      dataSolicitacoes.data[index]["tipos"] = [
+                        { tipo: res.data[0].tipo },
+                      ];
+                      dataSolicitacoes.data[index]["valorFipe"] =
+                        res.data[0].valor;
+                      console.log(res.data[0].modelo);
+                    })
+                    .catch((error) => console.log(error));
 
                   coberturasAPI
                     .getByID(id)
@@ -213,6 +285,16 @@ const SolicitacaoComponent = (props) => {
                       dataSolicitacoes.data[index]["coberturas"] =
                         descricaoCoberturas;
                       console.log(dataSolicitacoes.data);
+
+                      const fipe = new FipeAPI();
+                      fipe
+                        .get()
+                        .then((res) => {
+                          setFipe(res.data);
+                          setMarcas(removeDuplicates(res.data));
+                        })
+                        .catch((error) => console.log(error));
+
                       setLoading(false);
                     })
                     .catch((error) => {
@@ -259,8 +341,17 @@ const SolicitacaoComponent = (props) => {
           })
       );
     } else {
-      setSolicitacoes([Solicitacoes]);
-      setLoading(false);
+      const fipe = new FipeAPI();
+      fipe
+        .get()
+        .then((res) => {
+          console.log(res.data);
+          setFipe(res.data);
+          setMarcas(removeDuplicates(res.data));
+          setSolicitacoes([Solicitacoes]);
+          setLoading(false);
+        })
+        .catch((error) => console.log(error));
     }
   }, []);
 
@@ -297,6 +388,12 @@ const SolicitacaoComponent = (props) => {
     return dd + "/" + mm + "/" + yyyy;
   }
 
+  Yup.addMethod(Yup.array, "unique", function (message, mapper = (a) => a) {
+    return this.test("unique", message, function (list) {
+      return list.length === new Set(list.map(mapper)).size;
+    });
+  });
+
   return (
     <>
       {loading ? (
@@ -312,7 +409,8 @@ const SolicitacaoComponent = (props) => {
               coberturas: Yup.array()
                 .required("Escolha pelo menos uma cobertura") // these constraints are shown if and only if inner constraints are satisfied
                 .min(1, "Minimum of 1 friends")
-                .max(6, "Maximo de 6 coberturas por solicitação"),
+                .max(6, "Maximo de 6 coberturas por solicitação")
+                .unique("Valores tem que ser unicos"),
               dataCadastro: Yup.string().required("Required"),
               dataNascimento: Yup.string().required("Required"),
               enderecoBairro: Yup.string().required("Required"),
@@ -337,22 +435,31 @@ const SolicitacaoComponent = (props) => {
               rgUf: Yup.string().required("Required"),
             })}
             onSubmit={(values, { setSubmitting }) => {
-              const { primeiroNome, sobrenome } = values;
               const { coberturas } = values;
 
               delete values["primeiroNome"];
               delete values["sobrenome"];
-              delete values["valorTotal"];
               delete values["dataApolice"];
               delete values["dataExclusao"];
               delete values["coberturas"];
+              delete values["marca"];
+              delete values["modelo"];
+              delete values["ano"];
+              delete values["tipo"];
+              delete values["marcas"];
+              delete values["modelos"];
+              delete values["anos"];
+              delete values["tipos"];
               delete values["searcher"];
+              delete values["valorFipe"];
 
+              if (carro !== null) {
+                values["idCarro"] = carro.idCarro;
+              }
               values["dataModificacao"] = getTodayDate();
               console.log(values);
 
               const solicitacao = new SolicitacoesAPI();
-              const coberturasAPI = new CoberturasAPI();
               setModalMessage("Carregando operação");
               setModalIcon(<SpinnerComponent></SpinnerComponent>);
               setFetchLoading(true);
@@ -530,6 +637,89 @@ const SolicitacaoComponent = (props) => {
                   placeholder="CNH Data emissão"
                 />
                 <hr />
+                <h5>Informações do Carro</h5>
+                <Select
+                  label="Qual a marca do carro?"
+                  name="marca"
+                  onChange={async (e) => {
+                    const { value } = e.target;
+                    const modelos = await getModelos(value, fipe);
+                    setFieldValue("marca", value);
+                    setFieldValue("modelo", "");
+                    setFieldValue("modelos", modelos);
+                  }}
+                >
+                  <option value="">Selecione a marca</option>
+                  {marcas
+                    ? marcas.map((value, index) => (
+                        <option>{value.marca}</option>
+                      ))
+                    : null}
+                </Select>
+                <Select
+                  label="Qual o modelo do carro?"
+                  name="modelo"
+                  onChange={async (e) => {
+                    const { value } = e.target;
+                    const anos = await getAnos(value, fipe);
+                    setFieldValue("modelo", value);
+                    setFieldValue("ano", "");
+                    setFieldValue("anos", anos);
+                  }}
+                >
+                  <option value="">Selecione o modelo</option>
+                  {values.modelos &&
+                    values.modelos.map((r) => (
+                      <option key={r.modelo} value={r.modelo}>
+                        {r.modelo}
+                      </option>
+                    ))}
+                </Select>
+                <Select
+                  label="Qual o ano do carro?"
+                  name="ano"
+                  onChange={async (e) => {
+                    const { value } = e.target;
+                    const tipos = await getTipos(values.modelo, value, fipe);
+                    setFieldValue("ano", value);
+                    setFieldValue("tipo", "");
+                    setFieldValue("tipos", tipos);
+                  }}
+                >
+                  <option value="-">Selecione o ano</option>
+                  {values.anos &&
+                    values.anos.map((r) => (
+                      <option key={r.ano} value={r.ano}>
+                        {r.ano}
+                      </option>
+                    ))}
+                </Select>
+                <Select
+                  label="Informe o tipo combustivel do carro"
+                  name="tipo"
+                  onChange={async (e) => {
+                    const { value } = e.target;
+                    setFieldValue("tipo", value);
+                    setValues(
+                      await getCarro(values, value, fipe, setFieldValues)
+                    );
+                  }}
+                >
+                  <option value="">Selecione o combustivel</option>
+                  {values.tipos &&
+                    values.tipos.map((r) => (
+                      <option key={r.tipo} value={r.tipo}>
+                        {r.tipo}
+                      </option>
+                    ))}
+                </Select>
+                <TextInput
+                  label="Valor fipe"
+                  name="valorFipe"
+                  type="text"
+                  placeholder="Valor fipe"
+                />
+                <hr />
                 {localStorage.getItem("role") === "godmode" ? (
                   <h3 className="mb-1">Coberturas</h3>
                 ) : null}
@@ -622,7 +812,13 @@ const SolicitacaoComponent = (props) => {
                 {localStorage.getItem("role") === "godmode" ? (
                   <>
                     <hr />
-                    <div className="row">
+                    <TextInput
+                      label="Valor total"
+                      name="valorTotal"
+                      type="text"
+                      placeholder="Valor total"
+                    />
+                    <div className="row mt-3">
                       <div className="col-sm-12">
                         <button
                           type="submit"

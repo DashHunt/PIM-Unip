@@ -18,12 +18,19 @@ function CEPInput({ label, values, ...props }) {
       cepAPI
         .get(value)
         .then((res) => {
-          props.setData((prev) => ({
-            ...prev,
-            enderecoEstado: res.data.uf,
-            enderecoBairro: res.data.bairro,
-            enderecoLogradouro: res.data.logradouro,
-          }));
+          console.log(res.data);
+          if (res.data.erro) {
+            setErrorCEP(true);
+            setErrorMessage("Falha na requisição de CEP");
+          } else {
+            props.setData((prev) => ({
+              ...prev,
+              enderecoCep: value,
+              enderecoEstado: res.data.uf,
+              enderecoBairro: res.data.bairro,
+              enderecoLogradouro: res.data.logradouro,
+            }));
+          }
         })
         .catch((err) => {
           setErrorCEP(true);
@@ -48,6 +55,7 @@ function CEPInput({ label, values, ...props }) {
               aria-label="Procurar CEP"
               aria-describedby="basic-addon2"
               className="border-danger"
+              maxLength={"8"}
               {...field}
               {...props}
             />
