@@ -14,6 +14,7 @@ import TableSolicitacoes from "./components/Solicitacoes/TableSolicitacoes";
 import ClientesTable from "./components/Clientes/ClientesTable";
 import ClientesPage from "./components/Clientes/ClientePage";
 import MetricasPage from "./components/Metricas/MetricasPage";
+import NotFoundPae from "./components/NotFoundPae";
 
 ReactDOM.render(
   <React.StrictMode>
@@ -94,6 +95,14 @@ ReactDOM.render(
             <ProtectedRoute path={routes.login.path}>
               <MetricasPage />
             </ProtectedRoute>
+          }
+        ></Route>
+        <Route
+          path="*"
+          exact={true}
+          element={
+            
+              <NotFoundPae />
           }
         ></Route>
       </Routes>

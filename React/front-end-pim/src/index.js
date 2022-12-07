@@ -13,6 +13,7 @@ import Login from "./components/Login/LoginPage";
 import SimulacaoPage from "./components/Simulacao/SimulacaoPage";
 import CadastroPage from "./components/Cadastro/CadastroPage";
 import ProtectedRoute from "./components/ProtectedRoute";
+import NotFoundPae from "./components/NotFoundPae";
 
 ReactDOM.render(
   <React.StrictMode>
@@ -43,6 +44,7 @@ ReactDOM.render(
             </ProtectedRoute>
           }
         ></Route>
+        <Route path="*" exact={true} element={<NotFoundPae />}></Route>
       </Routes>
     </BrowserRouter>
   </React.StrictMode>,

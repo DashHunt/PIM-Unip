@@ -136,10 +136,11 @@ const CadastroFour = (props) => {
   useEffect(() => {
     console.log("Mexi");
     const novoValor = adicionaValoresCoberturas();
+    console.log(novoValor)
     setValorTotal(novoValor);
     props.setNewData((prev) => ({
       ...prev,
-      valorTotal: valorTotal,
+      valorTotal: novoValor,
       coberturas: coberturas,
     }));
   }, [coberturas]);

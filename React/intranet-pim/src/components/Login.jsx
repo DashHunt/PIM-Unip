@@ -104,9 +104,6 @@ const Login = () => {
                 </Form.Text>
               ) : null}
             </Form.Group>
-            <Form.Group className="mb-1" controlId="formBasicCheckbox">
-              <Form.Check type="checkbox" label="Lembre de mim" />
-            </Form.Group>
             {notValidated ? (
               <div className="mb-2">
                 <Form.Text className="text-danger">

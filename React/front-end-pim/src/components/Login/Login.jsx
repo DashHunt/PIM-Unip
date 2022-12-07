@@ -111,9 +111,6 @@ const Login = (props) => {
             </Form.Text>
           ) : null}
         </Form.Group>
-        <Form.Group className="mb-3" controlId="formBasicCheckbox">
-          <Form.Check type="checkbox" label="Remeber me" />
-        </Form.Group>
         <div className="mt-3">
           {notValidated ? (
             <Form.Text className="text-danger">User not found</Form.Text>
